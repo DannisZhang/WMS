@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dannis.wms.po">
+    <class name="DepartmentPo" table="t_dept">
+        <id name="id" column="id">
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string" column="name"/>
+        <property name="code" type="string" column="code"/>
+        <property name="parentId" type="int" column="parent_id"/>
+        <property name="remark" type="string" column="remark"/>
+        <property name="status" type="string" column="status"/>
+        <property name="createdOn" type="timestamp" column="created_on"/>
+        <property name="createdBy" type="integer" column="created_by"/>
+        <property name="modifiedOn" type="timestamp" column="modified_on"/>
+        <property name="modifiedBy" type="integer" column="modified_by"/>
+    </class>
+</hibernate-mapping>
