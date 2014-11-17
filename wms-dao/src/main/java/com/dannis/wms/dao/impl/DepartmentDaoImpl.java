@@ -2,6 +2,7 @@ package com.dannis.wms.dao.impl;
 
 import com.dannis.wms.dao.DepartmentDao;
 import com.dannis.wms.po.DepartmentPo;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +48,18 @@ public class DepartmentDaoImpl implements DepartmentDao {
 
   @Override
   public List<DepartmentPo> queryDepartments(Map<String, Object> queryParams) {
+//    String sql = "SELECT id,name,code,remark,created_on,created_by,modified_on,modified_by "
+//            + "FROM t_dept "
+//            + "LIMIT " + queryParams.get("offset") + "," + queryParams.get("limit");
+    String hql = "from DepartmentPo";
+    Session session = sessionFactory.openSession();
+    Query query = session.createQuery(hql);
+    List list = query.list();
+    return list;
+  }
+
+  @Override
+  public List<DepartmentPo> queryDepartmentByPage(int pageNo, int pageSize, Map<String, String> queryParams) {
     return null;
   }
 

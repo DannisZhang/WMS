@@ -1,8 +1,8 @@
-$(function(){
-	initLeftMenu();
-	$('body').layout();
-	showCurrentTime();
-	initCalendar();
+$(function () {
+    initLeftMenu();
+    $('body').layout();
+    showCurrentTime();
+    initCalendar();
 });
 
 /* 左边菜单栏绑定单击事件 */
@@ -18,26 +18,28 @@ function initLeftMenu() {
 
 /* Initialize calendar */
 function initCalendar() {
-	$('#cc').calendar({
-		border:true,
-		weeks:['六','一','二','三','四','五','日'],
-		months:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'],
-		current:new Date()
+    $('#cc').calendar({
+        border: true,
+        weeks: ['六', '一', '二', '三', '四', '五', '日'],
+        months: ['一月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '十一月', '十二月'],
+        current: new Date()
     });
 }
 
 /* 添加Tab */
 function addTab(subTitle, url) {
-    if (!$('#tabs').tabs('exists', subTitle)) {
-        $('#tabs').tabs('add', {
+    var $tabs = $('#tabs');
+    if (!$tabs.tabs('exists', subTitle)) {
+        var $mainPanel = $('#mainPanel');
+        $tabs.tabs('add', {
             title: subTitle,
             content: createFrame(url),
             closable: true,
-            width: $('#mainPanel').width() - 10,
-            height: $('#mainPanel').height() - 26
+            width: $mainPanel.width() - 10,
+            height: $mainPanel.height() - 36
         });
     } else {
-        $('#tabs').tabs('select', subTitle);
+        $tabs.tabs('select', subTitle);
     }
 }
 
@@ -48,8 +50,8 @@ function createFrame(url) {
 
 /* 显示当前时间 */
 function showCurrentTime() {
-	$("#current-time").text(getCurrentTime());
-	setTimeout("showCurrentTime()",1000);
+    $("#current-time").text(getCurrentTime());
+    setTimeout("showCurrentTime()", 1000);
 }
 
 /* 获取当前时间字符串 */
@@ -58,7 +60,7 @@ function getCurrentTime() {
     var day;
     var date;
     var time;
-	
+
     if (today.getDay() == 0) {
         day = "星期日";
     } else if (today.getDay() == 1) {
@@ -74,18 +76,18 @@ function getCurrentTime() {
     } else if (today.getDay() == 6) {
         day = "星期六";
     }
-	
+
     var month = today.getMonth();
     month++;
     if (month < '10') {
         month = "0" + month;
     }
-	
+
     var d = today.getDate();
     if (d < '10') {
         d = "0" + d;
     }
-	
+
     date = today.getFullYear() + "年" + month + "月" + d + "日";
     var hours = today.getHours();
     var minutes = today.getMinutes();
@@ -99,8 +101,8 @@ function getCurrentTime() {
     if (seconds < '10') {
         seconds = "0" + seconds;
     }
-	
+
     time = hours + "时" + minutes + "分" + seconds + "秒";
-	
-	return date + " " + day + " " + time;
+
+    return date + " " + day + " " + time;
 }

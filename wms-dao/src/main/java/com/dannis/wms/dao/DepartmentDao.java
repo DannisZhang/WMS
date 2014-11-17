@@ -48,7 +48,16 @@ public interface DepartmentDao {
    * @param queryParams query parameters
    * @return those departments satisfied with the query parameters
    */
-  List<DepartmentPo> queryDepartments(Map<String, Object> queryParams);
+  List queryDepartments(Map<String, Object> queryParams);
+
+  /**
+   * Query department by page
+   * @param pageNo page number
+   * @param pageSize page size
+   * @param queryParams query parameters
+   * @return department list
+   */
+  List<DepartmentPo> queryDepartmentByPage(int pageNo,int pageSize,Map<String,String> queryParams);
 
   /**
    * Query the total number of departments according to specified query parameters

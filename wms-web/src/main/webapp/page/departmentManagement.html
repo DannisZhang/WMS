@@ -5,6 +5,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link id="easyuiTheme" rel="stylesheet" type="text/css" href="../static/easyui/themes/gray/easyui.css">
     <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/color.css">
     <link rel="stylesheet" type="text/css" href="../static/css/default.css">
     <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
@@ -12,7 +13,7 @@
     <script type="text/javascript" src="../static/js/common.js"></script>
 </head>
 <body class="easyui-layout">
-<div region="center" border="false" style="padding-top: 10px;">
+<div region="center" border="false" style="padding-top: 8px;">
     <table id="department_datagrid" fit="true">
     </table>
     <div id="table_toolbar" style="padding:2px 5px;">
@@ -42,19 +43,17 @@
     function initDatagrid() {
         var columns = [
             [
-                {checkbox: true},
+                {field:'ck',checkbox:true},
                 {field: "code", title: "编号", align: "center", width: 100},
                 {field: "name", title: "名称", align: "center", width: 120},
-                {field: "parent.name", title: "上级部门", align: "center", width: 100},
-                {field: "manager.name", title: "经理", align: "center", width: 90},
                 {field: "createdOn", title: "创建日期", align: "center", width: 120},
                 {field: "createdBy", title: "创建者", align: "center", width: 120},
                 {field: "remark", title: "备注", align: "center", width: 180},
                 {
-                    filed: "action", title: "操作", align: "center", width: 150,
+                    field:"id",title: "操作", align: "center", width: 150,
                     formatter: function (value, row, index) {
-                        var edit = '<a href="#" class="easyui-linkbutton">修改</a>';
-                        var del = '<a href="#" class="easyui-linkbutton">删除</a>';
+                        var edit = '<a class="datagrid-edit-button" style="height:20px;width:34px;text-align: center" href="#">修改</a>';
+                        var del = '<a class="datagrid-delete-button" style="height:20px;width:34px;text-align: center;margin-left:5px;" href="#">删除</a>';
                         return edit + del;
                     }
                 }
@@ -65,7 +64,15 @@
             pagination: true,
             loadMsg: '数据加载中...',
             columns: columns,
-            toolbar: "#table_toolbar"
+            toolbar: "#table_toolbar",
+            onLoadSuccess:function(data){
+                var $editButton = $('.datagrid-edit-button');
+                $editButton.linkbutton({plain:false});
+                $editButton.addClass("c8");
+                var $deleteButton = $('.datagrid-delete-button');
+                $deleteButton.linkbutton({plain:false});
+                $deleteButton.addClass("c5");
+            }
         });
     }
 </script>

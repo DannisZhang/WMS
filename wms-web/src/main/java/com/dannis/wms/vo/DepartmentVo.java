@@ -1,6 +1,5 @@
 package com.dannis.wms.vo;
 
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -43,7 +42,7 @@ public class DepartmentVo {
   /**
    * The time of creation
    */
-  private Date createdOn;
+  private String createdOn;
   /**
    * The id of creator
    */
@@ -51,7 +50,7 @@ public class DepartmentVo {
   /**
    * The time of modification
    */
-  private Date modifiedOn;
+  private String modifiedOn;
   /**
    * The id of modifier
    */
@@ -121,11 +120,11 @@ public class DepartmentVo {
     this.status = status;
   }
 
-  public Date getCreatedOn() {
+  public String getCreatedOn() {
     return createdOn;
   }
 
-  public void setCreatedOn(Date createdOn) {
+  public void setCreatedOn(String createdOn) {
     this.createdOn = createdOn;
   }
 
@@ -137,11 +136,11 @@ public class DepartmentVo {
     this.createdBy = createdBy;
   }
 
-  public Date getModifiedOn() {
+  public String getModifiedOn() {
     return modifiedOn;
   }
 
-  public void setModifiedOn(Date modifiedOn) {
+  public void setModifiedOn(String modifiedOn) {
     this.modifiedOn = modifiedOn;
   }
 

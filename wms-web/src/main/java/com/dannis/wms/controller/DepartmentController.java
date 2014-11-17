@@ -106,26 +106,6 @@ public class DepartmentController {
     result.setTotal(queryResult.getTotal());
     result.setRows(DepartmentWebUtil.convertToVos(queryResult.getRows()));
 
-    List<DepartmentVo> vos = new ArrayList<>();
-    for (int i = 0;i < 10;i++) {
-      DepartmentVo vo = new DepartmentVo();
-      vo.setCode("DEPT" + i);
-      vo.setName("部门" + i);
-      vo.setRemark("测试数据");
-      EmployeeVo manager = new EmployeeVo();
-      manager.setName("经理" + i);
-      vo.setManager(manager);
-      DepartmentVo parent = new DepartmentVo();
-      parent.setName("上级部门");
-      vo.setParent(parent);
-      vo.setCreatedOn(new Date());
-      vo.setModifiedOn(new Date());
-      vos.add(vo);
-    }
-    result.setCode(0);
-    result.setTotal(20);
-    result.setRows(vos);
-
     return result;
   }
 }

@@ -110,7 +110,7 @@
 .icon-dannis-about {
 	background: url('icons/info.png') no-repeat;
 }
-.icon-dannis-home {
+.icon-custom-home {
 	background: url('icons/home.png') no-repeat;
 }
 .icon-dannis-pin {
@@ -124,4 +124,10 @@
 }
 .icon-dannis-exit {
 	background: url('icons/exit.png') no-repeat;
+}
+.icon-custom-theme {
+	background: url('icons/theme.png') no-repeat;
+}
+.icon-custom-lock {
+	background: url('icons/lock_custom.png') no-repeat;
 }

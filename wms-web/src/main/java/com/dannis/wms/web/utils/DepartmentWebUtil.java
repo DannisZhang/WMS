@@ -1,5 +1,6 @@
 package com.dannis.wms.web.utils;
 
+import com.dannis.wms.common.utils.DateUtil;
 import com.dannis.wms.dto.DepartmentDto;
 import com.dannis.wms.entity.Department;
 import com.dannis.wms.entity.Employee;
@@ -52,17 +53,28 @@ public class DepartmentWebUtil {
     departmentVo.setCode(bo.getCode());
     departmentVo.setRemark(bo.getRemark());
 
-    DepartmentVo parent = new DepartmentVo();
-    parent.setId(bo.getParent().getId());
-    parent.setName(bo.getParent().getName());
-    parent.setCode(bo.getParent().getCode());
-    departmentVo.setParent(parent);
 
-    EmployeeVo manager = new EmployeeVo();
-    manager.setId(bo.getManager().getId());
-    manager.setName(bo.getManager().getName());
-    manager.setCode(bo.getManager().getCode());
-    departmentVo.setManager(manager);
+    if (null != bo.getParent()) {
+      DepartmentVo parent = new DepartmentVo();
+      parent.setId(bo.getParent().getId());
+      parent.setName(bo.getParent().getName());
+      parent.setCode(bo.getParent().getCode());
+      departmentVo.setParent(parent);
+    }
+
+    if (null != bo.getManager()) {
+      EmployeeVo manager = new EmployeeVo();
+      manager.setId(bo.getManager().getId());
+      manager.setName(bo.getManager().getName());
+      manager.setCode(bo.getManager().getCode());
+      departmentVo.setManager(manager);
+    }
+
+    departmentVo.setCreatedOn(DateUtil.dateToString(bo.getCreatedOn()));
+    departmentVo.setCreatedBy(bo.getCreatedBy());
+    departmentVo.setModifiedOn(DateUtil.dateToString(bo.getModifiedOn()));
+    departmentVo.setModifiedBy(bo.getModifiedBy());
+
     return departmentVo;
   }
 

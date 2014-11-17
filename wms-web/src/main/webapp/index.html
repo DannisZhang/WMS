@@ -20,35 +20,50 @@
     </div>
 </noscript>
 
-<div region="north" style="height:90px;overflow:hidden;">
-    <div style="width:100%;height:70px;margin:0 auto;padding:0 auto">
-        <img src="static/images/warehouse.png" style="width:70px;height:70px">
-        <span style="font-size:28px;font-weight:600;margin:0 auto;">管理系统</span>
-
-        <div style="float:right;width:160px;height:100%;">
-            <div class="top-btn-group">
-                <div class="top-btn">
-                    <span class="icon-dannis-home" style="display:inline-block;width:16px;height:16px;"></span>
-                    <a href="#">网站首页</a>
-                </div>
-                <div class="top-btn">
-                    <span class="icon-dannis-exit" style="display:inline-block;width:16px;height:16px;"></span>
-                    <a href="#">安全退出</a>
-                </div>
+<div region="north" style="height:46px;overflow:hidden;">
+    <div style="width:100%;height:100%;margin:0 auto;padding:0 auto">
+        <div style="float:left;width:70%;height:100%;">
+            <span style="font-size:32px;margin-left: 20px;">WMS</span>
+            <span style="font-size:28px;font-weight:600;margin:0 auto;">仓库管理系统</span>
+        </div>
+        <div style="float:right;width:30%;height:100%;text-align:right;">
+            <div style="margin-top:15px;margin-right:20px;padding:0 auto;height:26px;vertical-align: middle">
+                <img src="static/images/user_male_2.png" style="vertical-align: middle"/>
+                <span style="line-height:26px;vertical-align:middle;display:inline-block">欢迎您！</span>
+                <span style="line-height:26px;vertical-align:middle;display:inline-block">[管理员]</span>
+                <a href="#" class="easyui-menubutton" menu="#theme-menu"
+                   data-options="iconCls:'icon-custom-theme'">更换主题</a>
+                <a href="#" class="easyui-menubutton" menu="#system-menu"
+                   data-options="iconCls:'icon-custom-lock'">注销登陆</a>
+            </div>
+            <div id="theme-menu" style="width: 150px;">
+                <div data-options="iconCls:''">Default</div>
+                <div data-options="iconCls:''">Gray</div>
+                <div data-options="iconCls:''">Bootstrap</div>
+                <div data-options="iconCls:''">Black</div>
+                <div data-options="iconCls:''">Metro</div>
+                <div class="menu-sep"></div>
+                <div data-options="iconCls:''">Metro-Blue</div>
+                <div data-options="iconCls:''">Metro-Gray</div>
+                <div data-options="iconCls:''">Metro-Green</div>
+                <div data-options="iconCls:''">Metro-Orange</div>
+                <div data-options="iconCls:''">Metro-Red</div>
+                <div class="menu-sep"></div>
+                <div data-options="iconCls:''">UI-Cupertino</div>
+                <div data-options="iconCls:''">UI-Pepper-Grinder</div>
+                <div data-options="iconCls:''">UI-Sunny</div>
+            </div>
+            <div id="system-menu" style="width: 120px;">
+                <div data-options="iconCls:''">注销登陆</div>
+                <div data-options="iconCls:''">关闭系统</div>
             </div>
         </div>
-    </div>
-    <div style="width:100%;height:20px;margin:auto 0;border-top:solid 1px #D3D3D3;text-align:right">
-        <div id="system-status">
-            <span class="icon-dannis-user" style="display:inline-block;width:16px;height:16px;"></span>
-            <span id="current-user" style="height:16px;vertical-align:4px;">欢迎您!系统管理员</span>
-            <span id="current-time" style="vertical-align:4px;"></span>
-        </div>
+
     </div>
 </div>
 
 <!-- 系统菜单栏 -->
-<div region="west" split="true" title="系统管理菜单" style="width:180px;">
+<div region="west" split="true" title="系统菜单栏" style="width:180px;">
     <div id="menu" class="easyui-accordion" fit="true" border="false">
         <div title="系统管理" data-options="iconCls:'icon-dannis-setting'" style="overflow:auto;">
             <ul>
@@ -103,7 +118,7 @@
 
 <div region="center" id="mainPanel" title="工作面板" style="background: #eee;overflow:hidden;">
     <div id="tabs" class="easyui-tabs" fit="true" border="false">
-        <div title="首页" style="padding: 20px;" icon="icon-home" id="home">
+        <div title="首页" style="padding: 20px;" data-options="iconCls:'icon-custom-home'" id="home">
             <h2>Welcome to WMS!</h2>
         </div>
     </div>
