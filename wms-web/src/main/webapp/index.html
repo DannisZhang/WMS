@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <title>管理系统</title>
@@ -10,6 +11,7 @@
     <script type="text/javascript" src="static/easyui/jquery.min.js"></script>
     <script type="text/javascript" src="static/easyui/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="static/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="static/js/jquery.cookie.js"></script>
     <script type="text/javascript" src="static/js/common.js"></script>
 </head>
 <body class="easyui-layout" style="overflow-y: hidden" scroll="no">
@@ -31,10 +33,8 @@
                 <img src="static/images/user_male_2.png" style="vertical-align: middle"/>
                 <span style="line-height:26px;vertical-align:middle;display:inline-block">欢迎您！</span>
                 <span style="line-height:26px;vertical-align:middle;display:inline-block">[管理员]</span>
-                <a href="#" class="easyui-menubutton" menu="#theme-menu"
-                   data-options="iconCls:'icon-custom-theme'">更换主题</a>
-                <a href="#" class="easyui-menubutton" menu="#system-menu"
-                   data-options="iconCls:'icon-custom-lock'">注销登陆</a>
+                <a id="change-theme-menubutton" href="javascript:void(0)">更换主题</a>
+                <a id="exit-menubutton" href="javascript:void(0)">退出系统</a>
             </div>
             <div id="theme-menu" style="width: 150px;">
                 <div data-options="iconCls:''">Default</div>
@@ -54,11 +54,26 @@
                 <div data-options="iconCls:''">UI-Sunny</div>
             </div>
             <div id="system-menu" style="width: 120px;">
-                <div data-options="iconCls:''">注销登陆</div>
-                <div data-options="iconCls:''">关闭系统</div>
+                <div data-options="iconCls:'icon-custom-lock-go'" name="logout-button">注销登陆</div>
+                <div data-options="iconCls:'icon-custom-exit'" name="exit-button">关闭系统</div>
+            </div>
+            <div id="logout-dialog" class="easyui-dialog" title="退出登陆" style="width:320px;height:150px;"
+                 data-options="iconCls:'icon-custom-exit',resizable:true,modal:true,closed:true,
+                 buttons:[
+                 {text:'是的',iconCls:'icon-ok',handler:function(){alert('YES')}},
+                 {text:'不是',iconCls:'icon-no',handler:function(){alert('NO')}}
+                 ]">
+                <p style="margin-left:25px;margin-top:25px">是否退出登陆?</p>
+            </div>
+            <div id="exit-dialog" class="easyui-dialog" title="退出系统" style="width:320px;height:150px;"
+                 data-options="iconCls:'icon-custom-exit',resizable:true,modal:true,closed:true,
+                 buttons:[
+                 {text:'是的',iconCls:'icon-ok',handler:function(){alert('YES')}},
+                 {text:'不是',iconCls:'icon-no',handler:function(){alert('NO')}}
+                 ]">
+                <p style="margin-left:25px;margin-top:25px">是否退出并关闭系统?</p>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -67,58 +82,64 @@
     <div id="menu" class="easyui-accordion" fit="true" border="false">
         <div title="系统管理" data-options="iconCls:'icon-dannis-setting'" style="overflow:auto;">
             <ul>
-                <li><a target="mainFrame" href="page/userManagement.html">用户管理</a></li>
-                <li><a target="mainFrame" href="page/default.html">权限管理</a></li>
-                <li><a target="mainFrame" href="page/default.html">条码管理</a></li>
-                <li><a target="mainFrame" href="page/systemSetting.html">系统设置</a></li>
+                <li><a href="#" onclick="addTab('用户管理','page/userManagement.html')">用户管理</a></li>
+                <li><a href="#" onclick="addTab('权限管理','http://www.baidu.com')">权限管理</a></li>
+                <li><a href="#" onclick="addTab('条码管理','http://www.baidu.com')">条码管理</a></li>
+                <li><a href="#" onclick="addTab('系统设置','page/systemSetting.html')">系统设置</a></li>
             </ul>
         </div>
         <div title="基础数据" data-options="iconCls:'icon-dannis-setting'" style="overflow:auto;">
             <ul>
-                <li><a target="mainFrame" href="page/departmentManagement.html">部门管理</a></li>
-                <li><a target="mainFrame" href="page/default.html">客户管理</a></li>
-                <li><a target="mainFrame" href="page/default.html">货品类别</a></li>
-                <li><a target="mainFrame" href="page/default.html">仓库管理</a></li>
-                <li><a target="mainFrame" href="page/default.html">货架管理</a></li>
+                <li><a href="#" onclick="addTab('部门管理','page/departmentManagement.html')">部门管理</a></li>
+                <li><a href="#" onclick="addTab('客户管理','page/default.html')">客户管理</a></li>
+                <li><a href="#" onclick="addTab('货品类别','page/default.html')">货品类别</a></li>
+                <li><a href="#" onclick="addTab('仓库管理','page/default.html')">仓库管理</a></li>
+                <li><a href="#" onclick="addTab('货架管理','page/default.html')">货架管理</a></li>
             </ul>
         </div>
         <div title="仓库管理" data-options="iconCls:'icon-dannis-storage'" style="overflow:auto;">
             <ul>
-                <li><a target="mainFrame" href="page/default.html">库存查询</a></li>
-                <li><a target="mainFrame" href="page/default.html">采购入库</a></li>
-                <li><a target="mainFrame" href="page/default.html">归还入库</a></li>
-                <li><a target="mainFrame" href="page/default.html">领用出库</a></li>
-                <li><a target="mainFrame" href="page/default.html">调库出库</a></li>
-                <li><a target="mainFrame" href="page/default.html">报废出库</a></li>
-                <li><a target="mainFrame" href="page/default.html">库存盘点</a></li>
+                <li><a href="#" onclick="addTab('库存查询','page/default.html')">库存查询</a></li>
+                <li><a href="#" onclick="addTab('采购入库','page/default.html')">采购入库</a></li>
+                <li><a href="#" onclick="addTab('归还入库','page/default.html')">归还入库</a></li>
+                <li><a href="#" onclick="addTab('领用入库','page/default.html')">领用出库</a></li>
+                <li><a href="#" onclick="addTab('调库出库','page/default.html')">调库出库</a></li>
+                <li><a href="#" onclick="addTab('报废出库','page/default.html')">报废出库</a></li>
+                <li><a href="#" onclick="addTab('库存盘点','page/default.html')">库存盘点</a></li>
             </ul>
         </div>
         <div title="采购管理" data-options="iconCls:'icon-dannis-storage'" style="overflow:auto;">
             <ul>
-                <li><a target="mainFrame" href="page/default.html">商品入库</a></li>
-                <li><a target="mainFrame" href="page/default.html">商品出库</a></li>
-                <li><a target="mainFrame" href="page/default.html">商品类别</a></li>
+                <li><a href="#" onclick="addTab('商品入库','page/default.html')">商品入库</a></li>
+                <li><a href="#" onclick="addTab('商品出库','page/default.html')">商品出库</a></li>
+                <li><a href="#" onclick="addTab('商品类别','page/default.html')">商品类别</a></li>
             </ul>
         </div>
         <div title="财务报表" data-options="iconCls:'icon-dannis-report'">
             <ul>
-                <li><a target="mainFrame" href="page/default.html">用户管理</a></li>
-                <li><a target="mainFrame" href="page/default.html">网站设置</a></li>
-                <li><a target="mainFrame" href="page/default.html">网站设置</a></li>
+                <li><a href="#" onclick="addTab('用户管理','page/default.html')">用户管理</a></li>
+                <li><a href="#" onclick="addTab('网站设置','page/default.html')">网站设置</a></li>
+                <li><a href="#" onclick="addTab('网站设置','page/default.html')">网站设置</a></li>
             </ul>
         </div>
         <div title="关于系统" data-options="iconCls:'icon-dannis-about'">
             <ul>
-                <li><a target="mainFrame" href="page/default.html">关于本系统</a></li>
-                <li><a target="mainFrame" href="page/default.html">使用手册</a></li>
+                <li><a href="#" onclick="addTab('关于本系统','page/default.html')">关于本系统</a></li>
+                <li><a href="#" onclick="addTab('使用手册','page/default.html')">使用手册</a></li>
             </ul>
         </div>
     </div>
 </div>
 
 <div region="center" id="mainPanel" title="工作面板" style="background: #eee;overflow:hidden;">
-    <div id="tabs" class="easyui-tabs" fit="true" border="false">
+    <div id="workspaceTabs">
         <div title="首页" style="padding: 20px;" data-options="iconCls:'icon-custom-home'" id="home">
+            <h2>Welcome to WMS!</h2>
+
+            <h2>Welcome to WMS!</h2>
+
+            <h2>Welcome to WMS!</h2>
+
             <h2>Welcome to WMS!</h2>
         </div>
     </div>

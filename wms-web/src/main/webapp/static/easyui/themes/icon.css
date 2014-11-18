@@ -122,12 +122,15 @@
 .icon-dannis-user {
 	background: url('icons/user_male.png') no-repeat;
 }
-.icon-dannis-exit {
+.icon-custom-exit {
 	background: url('icons/exit.png') no-repeat;
 }
 .icon-custom-theme {
 	background: url('icons/theme.png') no-repeat;
 }
 .icon-custom-lock {
-	background: url('icons/lock_custom.png') no-repeat;
+	background: url('icons/lock_1.png') no-repeat;
 }
+ .icon-custom-lock-go {
+	 background: url('icons/lock_go.png') no-repeat;
+ }

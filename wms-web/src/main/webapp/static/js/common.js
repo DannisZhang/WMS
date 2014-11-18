@@ -1,9 +1,46 @@
+var themeName = 'gray';
+var customThemeHref = "static/easyui/themes/gray/easyui.css";
 $(function () {
+    init();
+});
+
+function init() {
+    initTopMenu();
     initLeftMenu();
+    initWorkspaceTabs();
     $('body').layout();
     showCurrentTime();
     initCalendar();
-});
+    if ($.cookie('easyuiThemeName')) {
+        changeTheme($.cookie('easyuiThemeName'));
+    }
+}
+
+function initTopMenu() {
+    var $changeThemeMenuButton = $("#change-theme-menubutton").menubutton({
+        menu:'#theme-menu',
+        iconCls:'icon-custom-theme'
+    });
+    var $exitMenuButton = $("#exit-menubutton").menubutton({
+        menu:'#system-menu',
+        iconCls:'icon-custom-lock'
+    });
+    $($changeThemeMenuButton.menubutton('options').menu).menu({
+        onClick:function (item) {
+            themeName = item.text.toLowerCase();
+            changeTheme(themeName);
+        }
+    });
+    $($exitMenuButton.menubutton('options').menu).menu({
+        onClick:function (item) {
+            if ("logout-button" == item.name) {
+                $('#logout-dialog').dialog('open');
+            } else if ("exit-button" == item.name) {
+                $("#exit-dialog").dialog('open');
+            }
+        }
+    });
+}
 
 /* 左边菜单栏绑定单击事件 */
 function initLeftMenu() {
@@ -13,6 +50,16 @@ function initLeftMenu() {
         addTab(tabTitle, url);
         $('#menu').find('ul li a').removeClass("selected");
         $(this).addClass("selected");
+    });
+}
+
+/**
+ * 初始化Tab
+ */
+function initWorkspaceTabs() {
+    $("div[id='workspaceTabs']").tabs({
+        border:false,
+        fit:true
     });
 }
 
@@ -28,24 +75,22 @@ function initCalendar() {
 
 /* 添加Tab */
 function addTab(subTitle, url) {
-    var $tabs = $('#tabs');
+    var $tabs = $('#workspaceTabs');
     if (!$tabs.tabs('exists', subTitle)) {
         var $mainPanel = $('#mainPanel');
+        var id = "iframe" + subTitle;
+        var content = '<iframe scrolling="auto" frameborder="0" src="' + url + '" id="' + id + '" style="width:100%;height:100%;"></iframe>';
         $tabs.tabs('add', {
             title: subTitle,
-            content: createFrame(url),
+            content: content,
+            fit:true,
             closable: true,
-            width: $mainPanel.width() - 10,
-            height: $mainPanel.height() - 36
+            height: $mainPanel.height() - 26
         });
+        refreshTheme();
     } else {
         $tabs.tabs('select', subTitle);
     }
-}
-
-/* 创建iframe */
-function createFrame(url) {
-    return '<iframe name="mainFrame" scrolling="yes" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
 }
 
 /* 显示当前时间 */
@@ -105,4 +150,50 @@ function getCurrentTime() {
     time = hours + "时" + minutes + "分" + seconds + "秒";
 
     return date + " " + day + " " + time;
+}
+
+/* 修改主题 */
+function changeTheme(themeName) {
+    var $easyuiTheme = $("link[id='easyuiTheme']");
+    var oldHref = $easyuiTheme.attr("href");
+    var newHref = oldHref.substring(0, oldHref.indexOf('themes')) + 'themes/' + themeName + '/easyui.css';
+    $easyuiTheme.attr("href", newHref);
+    customThemeHref = newHref;
+
+    //子页面iframe
+    var $iframes = $('iframe');
+    if ($iframes.length > 0) {
+        var iframeHref = '../' + newHref;
+        for (var i = 0; i < $iframes.length; i++) {
+            $($iframes[i]).contents().find('link[id="easyuiTheme"]').attr('href', iframeHref);
+        }
+    }
+    $.cookie('easyuiThemeName', themeName, {
+        expires: 7
+    });
+}
+function refreshTheme() {
+    //子页面iframe
+    var $iframes = $('iframe');
+    if ($iframes.length > 0) {
+        var iframeHref = '../' + customThemeHref;
+        for (var i = 0; i < $iframes.length; i++) {
+            $($iframes[i]).contents().find('link[id="easyuiTheme"]').attr('href', iframeHref);
+        }
+    }
+}
+/**
+ * 检查新添加的Tab的主题是否跟系统一致，若不一致则切换至跟系统一样
+ * @param title
+ */
+function checkTheme(title) {
+    var $iframes = $('iframe');
+    if ($iframes.length > 0) {
+        var iframeId = 'iframe' + title;
+        for (var i = 0;i < $iframes.length;i++) {
+            if (iframeId == $($iframes[i]).attr('id')) {
+                $($iframes[i]).contents().find('link[id="easyuiTheme"]').attr('href', '../' + customThemeHref);
+            }
+        }
+    }
 }
