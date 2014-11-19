@@ -162,7 +162,15 @@
 
         //第一列搜索框绑定事件
         $("input[id='search-input-first']").on("input",function () {
-            alert($(this).val());
+            var content = $("input[id='search-input-first']").val().trim();
+            if (content) {
+                var options = $("select[id='selectable-items-first']").find("option");
+                for (var i = 0;i < options.length;i++) {
+                    if (options[i].text.indexOf(content) != -1) {
+                        console.info(options[i].text)
+                    }
+                }
+            }
         });
 
         //第二列搜索框绑定事件
