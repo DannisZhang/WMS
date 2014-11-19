@@ -2,41 +2,174 @@
 <head>
     <title></title>
     <link id="easyuiTheme" rel="stylesheet" type="text/css" href="../static/easyui/themes/default/easyui.css">
-	<link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css">
-	<link rel="stylesheet" type="text/css" href="../static/css/default.css">
-	<script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
-	<script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
-	<script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js"></script>
-	<script type="text/javascript" src="../static/js/common.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../static/css/default.css">
+    <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <style type="text/css">
+        .combo-select-box {
+            width: 400px;
+            text-align: center;
+        }
+
+        .combo-select-box button {
+            width: 30px;
+            height: 22px;
+            font-size: 14px;
+            line-height: 12px;
+            display: block;
+        }
+
+        .search-row {
+            text-align: left;
+        }
+
+        .search-row input {
+            width: 124px;
+        }
+
+        .selectable-row {
+            vertical-align: top;
+        }
+
+        .selectable-row select {
+            width: 130px;
+            height: 250px;
+        }
+
+        .button-col {
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
-<div style="width: 405px;height: 300px;border: solid 1px #808080;border-radius: 5px;">
-    <div style="width: 180px;height: 100%;display: inline-block;vertical-align: top">
-        <input type="text" style="width: 150px;margin: 0;">
-        <select multiple="multiple" style="width: 100%;margin: 0;">
-            <option value="">选项1</option>
-            <option value="">选项2</option>
-            <option value="">选项3</option>
-            <option value="">选项4</option>
-            <option value="">选项5</option>
-            <option value="">选项6</option>
-        </select>
-    </div>
-    <div style="width:20px;height:100%;display:inline-block;text-align: center;vertical-align: middle">
-            >>
-            <<
-    </div>
-    <div style="width: 180px;height: 100%;display: inline-block;vertical-align: top">
-        <input type="text" style="width: 150px">
-        <select multiple="multiple" style="width:180px;">
-            <option value="">选项1</option>
-            <option value="">选项2</option>
-            <option value="">选项3</option>
-            <option value="">选项4</option>
-            <option value="">选项5</option>
-            <option value="">选项6</option>
-        </select>
-    </div>
-</div>
+<table class="combo-select-box">
+    <tr class="search-row">
+        <td>
+            <input id="search-input-first" type="text">
+        </td>
+        <td></td>
+        <td>
+            <input id="search-input-second" type="text">
+        </td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr class="selectable-row">
+        <td>
+            <select id="selectable-items-first" multiple="multiple">
+                <option value="BeiJing">北京</option>
+                <option value="ShangHai">上海</option>
+                <option value="ShanDong">山东</option>
+                <option value="AnHui">安徽</option>
+                <option value="ChongQing">重庆</option>
+                <option value="FuJian">福建</option>
+                <option value="GanSu">甘肃</option>
+                <option value="广东">广东</option>
+                <option value="广西">广西</option>
+                <option value="贵州">贵州</option>
+                <option value="海南">海南</option>
+                <option value="河北">河北</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="河南">河南</option>
+                <option value="湖北">湖北</option>
+                <option value="湖南">湖南</option>
+                <option value="内蒙古">内蒙古</option>
+                <option value="江苏">江苏</option>
+                <option value="江西">江西</option>
+                <option value="吉林">吉林</option>
+                <option value="辽宁">辽宁</option>
+                <option value="宁夏">宁夏</option>
+                <option value="青海">青海</option>
+                <option value="山西">山西</option>
+                <option value="陕西">陕西</option>
+                <option value="四川">四川</option>
+                <option value="天津">天津</option>
+                <option value="西藏">西藏</option>
+                <option value="新疆">新疆</option>
+                <option value="云南">云南</option>
+                <option value="浙江">浙江</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+                <option value="台湾">台湾</option>
+                <option value="其他">其他</option>
+            </select>
+        </td>
+        <td class="button-col">
+            <button id="select-button-first">>></button>
+        </td>
+        <td>
+            <select id="selectable-items-second" multiple="multiple">
+                <option value="北京">北京</option>
+                <option value="上海">上海</option>
+                <option value="山东">山东</option>
+                <option value="安徽">安徽</option>
+                <option value="重庆">重庆</option>
+                <option value="福建">福建</option>
+                <option value="甘肃">甘肃</option>
+                <option value="广东">广东</option>
+                <option value="广西">广西</option>
+                <option value="贵州">贵州</option>
+                <option value="海南">海南</option>
+                <option value="河北">河北</option>
+                <option value="黑龙江">黑龙江</option>
+                <option value="河南">河南</option>
+                <option value="湖北">湖北</option>
+                <option value="湖南">湖南</option>
+                <option value="内蒙古">内蒙古</option>
+                <option value="江苏">江苏</option>
+                <option value="江西">江西</option>
+                <option value="吉林">吉林</option>
+                <option value="辽宁">辽宁</option>
+                <option value="宁夏">宁夏</option>
+                <option value="青海">青海</option>
+                <option value="山西">山西</option>
+                <option value="陕西">陕西</option>
+                <option value="四川">四川</option>
+                <option value="天津">天津</option>
+                <option value="西藏">西藏</option>
+                <option value="新疆">新疆</option>
+                <option value="云南">云南</option>
+                <option value="浙江">浙江</option>
+                <option value="香港">香港</option>
+                <option value="澳门">澳门</option>
+                <option value="台湾">台湾</option>
+                <option value="其他">其他</option>
+            </select>
+        </td>
+        <td class="button-col">
+            <button id="select-button-second">>></button>
+            <button id="deselect-button"><<</button>
+        </td>
+        <td>
+            <select id="selected-items" multiple="multiple">
+            </select>
+        </td>
+    </tr>
+</table>
+<script type="text/javascript">
+    $(function() {
+        //选择按钮绑定事件
+        $("button[id='select-button-first']").click(function () {
+            $("select[id='selected-items']").append($("select[id='selectable-items-first']").find("option:selected"));
+        });
+
+        //取消选择按钮绑定事件
+        $("button[id='deselect-button']").click(function () {
+            //
+        });
+
+        //第一列搜索框绑定事件
+        $("input[id='search-input-first']").on("input",function () {
+            alert($(this).val());
+        });
+
+        //第二列搜索框绑定事件
+        $("input[id='search-input-second']").on("input",function () {
+            alert($(this).val());
+        });
+    });
+</script>
 </body>
 </html>
