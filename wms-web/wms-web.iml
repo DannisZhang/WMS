@@ -25,6 +25,9 @@
     <orderEntry type="module" module-name="wms-common" />
     <orderEntry type="module" module-name="wms-service" />
     <orderEntry type="module" module-name="wms-dao" />
+    <orderEntry type="module" module-name="wms-common" />
+    <orderEntry type="module" module-name="wms-service" />
+    <orderEntry type="module" module-name="wms-dao" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context-support:4.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-orm:4.1.1.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:4.1.1.RELEASE" level="project" />
