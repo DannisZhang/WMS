@@ -3,40 +3,65 @@
  */
 var selectedItems1 = [];
 var selectedItems2 = [];
-var selectableItems1 = [];
-var selectableItems2 = [];
 
 function initMultiSelect(obj, dataOptions) {
     $(obj).css({
         "width": "400px",
+        "font-size":"14px",
         "text-align": "center"
     });
-    var row1 = "<tr style='text-align:left'>"
-        + "<td><input id='search-input-1' type='text' style='width:124px'></td>"
+    var label1 = "选择列一";
+    var label2 = "选择列二";
+    var label3 = "已选择列";
+    if (dataOptions) {
+        if (dataOptions.param1.label) {
+            label1 = dataOptions.param1.label;
+        }
+        if (dataOptions.param2.label) {
+            label2 = dataOptions.param2.label;
+            label3 = "已选择" + label2;
+        }
+    }
+
+    var labelRow = "<tr style='text-align:left'>"
+        + "<td><label id='label1' for='search-input-1'>" + label1 + "</label></td>"
         + "<td></td>"
-        + "<td><input id='search-input-2' type='text' style='width:124px'></td>"
+        + "<td><label id='label2' for='search-input-2'>" + label2 + "</label></td>"
+        + "<td></td>"
+        + "<td><label id='label3' for='selected-items'>" + label3 + "</label></td>"
+        + "</tr>";
+
+    var searchRow = "<tr style='text-align:left'>"
+        + "<td><input id='search-input-1' type='text' class='form-control' style='width:124px;padding: 0 3px;'></td>"
+        + "<td></td>"
+        + "<td><input id='search-input-2' type='text' class='form-control' style='width:124px;padding: 0 3px;'></td>"
         + "<td></td>"
         + "<td></td>"
         + "</tr>";
-    var row2 = "<tr style='vertical-align:top'>"
-        + "<td><select id='selectable-items-1' multiple='multiple' style='width:130px;height:250px'></select></td>"
+    var selectRow = "<tr style='vertical-align:top'>"
+        + "<td><select id='selectable-items-1' multiple='multiple' class='form-control' style='width:130px;height:220px;padding:0'></select></td>"
         + "<td style='vertical-align:middle'>"
         + "<button id='select-button-1' style='width:30px;height:22px;font-size:14px;line-height:12px;display:block'>--</button>"
         + "</td>"
-        + "<td><select id='selectable-items-2' multiple='multiple' style='width:130px;height:250px'></select></td>"
+        + "<td><select id='selectable-items-2' multiple='multiple' class='form-control' style='width:130px;height:220px;padding:0'></select></td>"
         + "<td style='vertical-align:middle'>"
-        + "<button id='select-button-2' style='width:30px;height:22px;font-size:14px;line-height:12px;display:block'>>></button>"
+        + "<button id='select-button-2' style='width:30px;height:22px;font-size:14px;line-height:12px;display:block'>>></button><br>"
         + "<button id='deselect-button' style='width:30px;height:22px;font-size:14px;line-height:12px;display:block'><<</button>"
         + "</td>"
-        + "<td><select id='selected-items' multiple='multiple' style='width:130px;height:250px'></select></td>"
+        + "<td><select id='selected-items' multiple='multiple' class='form-control' style='width:130px;height:220px;padding:0'></select></td>"
         + "</tr>";
 
-    $(obj).append(row1 + row2);
-    initSelect();
+    $(obj).append(labelRow + searchRow + selectRow);
     if (dataOptions) {
         if (dataOptions.singleClickSelect) {
             $("select").find("option").click(function () {
                 selectItem(this);
+            });
+        }
+        if (dataOptions.linkage) {
+            $("select[id='selectable-items-1']").on('change',function () {
+                console.info($(this).find("option:selected"));
+                //TODO:更新第二列数据
             });
         }
     }
@@ -44,31 +69,51 @@ function initMultiSelect(obj, dataOptions) {
 
 }
 
-function initSelect() {
-    var data1 = [{id: 1, name: '北京'}, {id: 2, name: '上海'}, {id: 3, name: '广州'}, {id: 4, name: '深圳'},
-        {id: 5, name: '贵州'}, {id: 6, name: '四川'}, {id: 7, name: '云南'}, {id: 8, name: '广东'},
-        {id: 9, name: '广西'}, {id: 10, name: '河南'}, {id: 11, name: '河北'}, {id: 12, name: '江苏'},
-        {id: 13, name: '江西'}, {id: 14, name: '湖北'}, {id: 15, name: '湖南'}];
-
-    var data2 = [{id: 1, name: '北京'}, {id: 2, name: '上海'}, {id: 3, name: '广州'}, {id: 4, name: '深圳'},
-        {id: 5, name: '贵州'}, {id: 6, name: '四川'}, {id: 7, name: '云南'}, {id: 8, name: '广东'},
-        {id: 9, name: '广西'}, {id: 10, name: '河南'}, {id: 11, name: '河北'}, {id: 12, name: '江苏'},
-        {id: 13, name: '江西'}, {id: 14, name: '湖北'}, {id: 15, name: '湖南'}, {id: 16, name: '山西'},
-        {id: 17, name: '陕西'}, {id: 18, name: '浙江'}];
-
+function resetMultiSelect(obj, dataOptions) {
     var select1 = $("select[id='selectable-items-1']");
-    select1.empty();
-    for (var i = 0; i < data1.length; i++) {
-        selectableItems1.push(data1[i].id);
-        select1.append("<option value='" + data1[i].id + "'>" + data1[i].name + "</option>");
-    }
-
     var select2 = $("select[id='selectable-items-2']");
+    select1.empty();
     select2.empty();
-    for (var j = 0; j < data2.length; j++) {
-        selectableItems2.push(data2[j].id);
-        select2.append("<option value='" + data2[j].id + "'>" + data2[j].name + "</option>");
+
+    var label1 = "选择列一";
+    var label2 = "选择列二";
+    var label3 = "已选择列";
+    if (dataOptions) {
+        if ('emptyData' == dataOptions.command) {
+            return;
+        }
+        if (dataOptions.param1.label) {
+            label1 = dataOptions.param1.label;
+        }
+        if (dataOptions.param2.label) {
+            label2 = dataOptions.param2.label;
+            label3 = "已选择" + label2;
+        }
     }
+    $(obj).find("label[id='label1']").text(label1);
+    $(obj).find("label[id='label2']").text(label2);
+    $(obj).find("label[id='label3']").text(label3);
+    fillData(select1,dataOptions.param1.url,dataOptions.param1.method);
+    fillData(select2,dataOptions.param2.url,dataOptions.param2.method);
+}
+
+function fillData(selectObj,url,method) {
+    var data = [];
+    $.ajax({
+        url:url,
+        type:method,
+        async:false,
+        success:function (result) {
+            data = result;
+        }
+    });
+
+    var select = $(selectObj);
+    var options = "";
+    for (var i = 0; i < data.length; i++) {
+        options += "<option value='" + data[i].id + "'>" + data[i].name + "</option>"
+    }
+    select.append(options);
 }
 
 function selectItem(obj) {
@@ -129,7 +174,7 @@ function bindEventHandler() {
         var options = $("select[id='selectable-items-1']").find("option");
         if (inputText) {
             for (var i = 0; i < options.length; i++) {
-                if (options[i].text.indexOf(inputText) != -1) {
+                if (options[i].text.toLowerCase().indexOf(inputText.toLowerCase()) != -1) {
                     options[i].style.display = "";
                 } else {
                     options[i].style.display = "none";
@@ -148,7 +193,7 @@ function bindEventHandler() {
         var options = $("select[id='selectable-items-2']").find("option");
         if (inputText) {
             for (var i = 0; i < options.length; i++) {
-                if (options[i].text.indexOf(inputText) != -1) {
+                if (options[i].text.toLowerCase().indexOf(inputText.toLowerCase()) != -1) {
                     options[i].style.display = "";
                 } else {
                     options[i].style.display = "none";
