@@ -5,6 +5,7 @@ var deletingDeptId = -1;
 $(function () {
     initDatagrid();
     initDialog();
+    initWindow();
 
     $("#delete-dept-btn").click(function () {
         var rows = $('#department-datagrid').datagrid('getChecked');
@@ -19,6 +20,10 @@ $(function () {
             alert(result.message);
             $('#department-datagrid').datagrid('reload');
         });
+    });
+
+    $("#add-dept-btn").click(function () {
+        $("#add-department-window").window("open");
     });
 });
 
@@ -106,7 +111,13 @@ function initDialog() {
 }
 
 function initWindow() {
-    //
+    $("#add-department-window").window({
+        title:"创建部门",
+        width:600,
+        height:450,
+        modal:true
+    });
+    $("#add-department-window").window("close");
 }
 function detail(event, deptId) {
     event.stopPropagation();
