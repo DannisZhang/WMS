@@ -19,12 +19,20 @@ public interface DepartmentDao {
   boolean addDepartment(DepartmentPo department);
 
   /**
-   * Delete a department
+   * Delete a department which id equals the specified id
    *
-   * @param deptId the department id which will be deleted
+   * @param deptId specified id
    * @return true indicate deleted successful,false indicate failed
    */
-  boolean deleteDepartment(int deptId);
+  boolean deleteDepartmentById(int deptId);
+
+  /**
+   * Delete departments those id equal the specified id list
+   *
+   * @param ids id list
+   * @return result
+   */
+  boolean deleteDepartmentsByIds(int[] ids);
 
   /**
    * Update a department
@@ -48,21 +56,21 @@ public interface DepartmentDao {
    * @param queryParams query parameters
    * @return those departments satisfied with the query parameters
    */
-  List queryDepartments(Map<String, Object> queryParams);
+  List queryDepartments(Map<String, String> queryParams);
 
   /**
    * Query department by page
-   * @param pageNo page number
-   * @param pageSize page size
+   * @param start start position
+   * @param maxSize max result size
    * @param queryParams query parameters
    * @return department list
    */
-  List<DepartmentPo> queryDepartmentByPage(int pageNo,int pageSize,Map<String,String> queryParams);
+  List<DepartmentPo> queryDepartmentByPage(int start, int maxSize, Map<String, String> queryParams);
 
   /**
    * Query the total number of departments according to specified query parameters
    * @param queryParams query parameters
    * @return total number of departments
    */
-  long getTotal(Map<String, Object> queryParams);
+  long getTotal(Map<String, String> queryParams);
 }

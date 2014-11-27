@@ -22,10 +22,12 @@ public class DepartmentServiceTest extends AbstractJUnit4SpringContextTests {
 
   @Test
   public void testAdd() {
-    Department department = new Department();
-    department.setName("信息技术部");
-    department.setCode("DEPT001");
-    department.setRemark("信息技术部");
-    departmentService.addDepartment(department);
+    for (int i = 0;i < 20;i++) {
+      Department department = new Department();
+      department.setName("测试部门" + i);
+      department.setCode("DEPT00000" + i);
+      department.setRemark("测试部门");
+      departmentService.addDepartment(department);
+    }
   }
 }

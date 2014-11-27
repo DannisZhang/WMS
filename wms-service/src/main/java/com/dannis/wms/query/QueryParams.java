@@ -29,7 +29,7 @@ public class QueryParams {
   /**
    * parameters
    */
-  private Map<String, Object> params;
+  private Map<String, String> params;
 
   public int getPage() {
     return page;
@@ -47,16 +47,16 @@ public class QueryParams {
     this.rows = rows;
   }
 
-  public Map<String, Object> getParams() {
+  public Map<String, String> getParams() {
     if (params == null) {
       params = new HashMap<>();
     }
-    params.put("offset", getOffset());
-    params.put("limit", getLimit());
+    params.put("offset", String.valueOf(getOffset()));
+    params.put("limit", String.valueOf(getLimit()));
     return params;
   }
 
-  public void setParams(Map<String, Object> params) {
+  public void setParams(Map<String, String> params) {
     this.params = params;
   }
 
@@ -109,7 +109,7 @@ public class QueryParams {
    * @return page size
    */
   public int getLimit() {
-    if (rows == 0) {
+    if (rows < 1) {
       rows = DEFAULT_PAGE_SIZE;
     }
     return rows;

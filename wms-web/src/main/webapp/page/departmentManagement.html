@@ -15,26 +15,37 @@
 </head>
 <body class="easyui-layout">
 <div region="center" border="false" style="padding-top: 8px;">
-<table id="department_datagrid" fit="true">
-</table>
-<div id="table_toolbar" style="padding:2px 5px;">
-    起始日期: <input class="easyui-datebox" style="width:110px">
-    截止日期: <input class="easyui-datebox" style="width:110px">
-    Language:
-    <select class="easyui-combobox" panelHeight="auto" style="width:100px">
-        <option value="java">Java</option>
-        <option value="c">C</option>
-        <option value="basic">Basic</option>
-        <option value="perl">Perl</option>
-        <option value="python">Python</option>
-    </select>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+    <table id="department-datagrid" fit="true">
+    </table>
+    <div id="table_toolbar" style="padding:2px 5px;">
+        起始日期: <input class="easyui-datebox" style="width:110px">
+        截止日期: <input class="easyui-datebox" style="width:110px">
+        Language:
+        <select class="easyui-combobox" panelHeight="auto" style="width:100px">
+            <option value="java">Java</option>
+            <option value="c">C</option>
+            <option value="basic">Basic</option>
+            <option value="perl">Perl</option>
+            <option value="python">Python</option>
+        </select>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
 
-    <div style="padding:2px 5px;">
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加部门</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除部门</a>
+        <div style="padding:2px 5px;">
+            <a href="javascript:void(0);" id="add-dept-btn" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加部门</a>
+            <a href="javascript:void(0);" id="delete-dept-btn" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除部门</a>
+        </div>
     </div>
-</div>
+
+    <div id="delete-Department-dialog">
+        <p style="margin-left:25px;margin-top:25px">真的要删除该部门吗?</p>
+    </div>
+    <div id="dd" class="easyui-dialog" title="删除部门" style="width:320px;height:150px;"
+         data-options="iconCls:'icon-custom-exit',resizable:true,modal:true,closed:true,
+                 buttons:[
+                 {text:'是的',iconCls:'icon-ok',handler:function(){alert('YES')}},
+                 {text:'不是',iconCls:'icon-no',handler:function(){alert('NO')}}
+                 ]">
+    </div>
 </div>
 </body>
 </html>

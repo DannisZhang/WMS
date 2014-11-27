@@ -8,16 +8,12 @@ import com.dannis.wms.query.result.PaginationQueryResult;
 import com.dannis.wms.query.result.SingleQueryResult;
 import com.dannis.wms.service.DepartmentService;
 import com.dannis.wms.vo.DepartmentVo;
-import com.dannis.wms.vo.EmployeeVo;
 import com.dannis.wms.web.utils.DepartmentWebUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * Created by: Dannis
@@ -38,7 +34,7 @@ public class DepartmentController {
    * @param dto department DTO
    * @return result
    */
-  @RequestMapping(value = "/add.do")
+  @RequestMapping(value = "/add.json")
   @ResponseBody
   public BaseResult addDepartment(DepartmentDto dto) {
     Department department = DepartmentWebUtil.convertToBo(dto);
@@ -52,10 +48,22 @@ public class DepartmentController {
    * @param deptId department id
    * @return result
    */
-  @RequestMapping(value = "deleteDepartmentById.do")
+  @RequestMapping(value = "deleteDepartmentById.json",method = RequestMethod.POST)
   @ResponseBody
   public BaseResult deleteDepartmentById(int deptId) {
-    return departmentService.deleteDepartment(deptId);
+    return departmentService.deleteDepartmentById(deptId);
+  }
+
+  /**
+   * Delete departments those id equal the specified id list
+   *
+   * @param ids id list
+   * @return result
+   */
+  @RequestMapping(value = "deleteDepartmentsByIds.json",method = RequestMethod.POST)
+  @ResponseBody
+  public BaseResult deleteDepartmentsByIds(int[] ids) {
+    return departmentService.deleteDepartmentsByIds(ids);
   }
 
   /**
@@ -64,7 +72,7 @@ public class DepartmentController {
    * @param dto department DTO
    * @return result
    */
-  @RequestMapping("/updateDepartment.do")
+  @RequestMapping("/updateDepartment.json")
   @ResponseBody
   public BaseResult updateDepartment(DepartmentDto dto) {
     Department department = DepartmentWebUtil.convertToBo(dto);
@@ -78,7 +86,7 @@ public class DepartmentController {
    * @param deptId department id
    * @return result
    */
-  @RequestMapping(value = "/queryById.do")
+  @RequestMapping(value = "/queryById.json")
   @ResponseBody
   public SingleQueryResult<DepartmentVo> queryDepartmentById(int deptId) {
     SingleQueryResult<Department> queryResult = departmentService.queryDepartment(deptId);
@@ -96,11 +104,11 @@ public class DepartmentController {
    * @param queryParams query parameters
    * @return result
    */
-  @RequestMapping(value = "/queryByPage.do")
+  @RequestMapping(value = "/queryByPage.json")
   @ResponseBody
   public PaginationQueryResult<DepartmentVo> queryDepartmentByPage(QueryParams queryParams) {
     PaginationQueryResult<DepartmentVo> result = new PaginationQueryResult<>();
-    PaginationQueryResult<Department> queryResult = departmentService.queryDepartments(queryParams);
+    PaginationQueryResult<Department> queryResult = departmentService.queryDepartmentsByPage(queryParams);
     result.setCode(queryResult.getCode());
     result.setMessage(queryResult.getMessage());
     result.setTotal(queryResult.getTotal());

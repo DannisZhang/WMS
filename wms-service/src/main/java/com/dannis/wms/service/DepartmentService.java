@@ -6,6 +6,8 @@ import com.dannis.wms.query.result.BaseResult;
 import com.dannis.wms.query.result.PaginationQueryResult;
 import com.dannis.wms.query.result.SingleQueryResult;
 
+import java.util.Map;
+
 /**
  * Department service interface
  * <p>
@@ -22,12 +24,20 @@ public interface DepartmentService {
     BaseResult addDepartment(Department department);
 
     /**
-     * Delete a department
+     * Delete a department which id equals the specified id
      *
-     * @param deptId the department id which will be deleted
+     * @param deptId specified id
      * @return deletion result
      */
-    BaseResult deleteDepartment(int deptId);
+    BaseResult deleteDepartmentById(int deptId);
+
+    /**
+     * Delete departments those id equal the specified id list
+     *
+     * @param ids id list
+     * @return result
+     */
+    BaseResult deleteDepartmentsByIds(int[] ids);
 
     /**
      * Update a department
@@ -52,4 +62,11 @@ public interface DepartmentService {
      * @return those departments satisfied the query parameters
      */
     PaginationQueryResult<Department> queryDepartments(QueryParams queryParams);
+
+    /**
+     * Query department by page
+     * @param queryParams query parameters
+     * @return department list
+     */
+    PaginationQueryResult<Department> queryDepartmentsByPage(QueryParams queryParams);
 }
