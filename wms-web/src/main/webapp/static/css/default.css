@@ -1,46 +1,50 @@
-#menu ul {
-	margin:0;
-	padding:0;
+.top-btn-group {
+    margin-top: 20px;
 }
-#menu ul li{
-	margin:0;
-	padding:0;
-	list-style-type:none;
+
+.top-btn-group .top-btn {
+    margin: 0;
+    padding: 0;
+    height: 16px;
+    display: inline-block;
 }
-#menu ul li a{
-	margin:0;
-	padding:0 0 0 20px;
-	display:block;
-	line-height:24px;
-	text-decoration: none;
-	color:#000;
-	font-size:14px;
-	font-weight:400;
+
+.top-btn-group .top-btn a {
+    display: inline;
+    margin-left: -5px;
+    vertical-align: 4px;
+    text-decoration: none;
+    font-size: 12px;
+    color: #000;
 }
-#menu ul li a:hover{
-	background-color:#D4D4D4;
+
+.top-btn-group .top-btn a:hover {
+    color: #000;
+    text-decoration: underline;
 }
-.selected{
-	background-color:#ABAFB8;
+
+.easyui-accordion ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
-.top-btn-group{
-	margin-top:20px;
+
+.easyui-accordion ul li {
+    padding: 0;
 }
-.top-btn-group .top-btn{
-	margin:0;
-	padding:0;
-	height:16px;
-	display:inline-block;
+
+.easyui-accordion ul li a {
+    padding: 0 0 0 20px;
+    line-height: 24px;
+    text-decoration: none;
+    display: block;
+    color: #000;
 }
-.top-btn-group .top-btn a{
-	display:inline;
-	margin-left:-5px;
-	vertical-align:4px;
-	text-decoration: none;
-	font-size:12px;
-	color:#000;
+
+.easyui-accordion ul li:hover {
+    background-color: #D4D4D4;
 }
-.top-btn-group .top-btn a:hover{
-	color:#000;
-	text-decoration: underline;
+
+.easyui-accordion ul li .selected {
+    background-color: #ABAFB8;
 }

@@ -18,21 +18,21 @@ function init() {
 
 function initTopMenu() {
     var $changeThemeMenuButton = $("#change-theme-menubutton").menubutton({
-        menu:'#theme-menu',
-        iconCls:'icon-custom-theme'
+        menu: '#theme-menu',
+        iconCls: 'icon-custom-theme'
     });
     var $exitMenuButton = $("#exit-menubutton").menubutton({
-        menu:'#system-menu',
-        iconCls:'icon-custom-lock'
+        menu: '#system-menu',
+        iconCls: 'icon-custom-lock'
     });
     $($changeThemeMenuButton.menubutton('options').menu).menu({
-        onClick:function (item) {
+        onClick: function (item) {
             themeName = item.text.toLowerCase();
             changeTheme(themeName);
         }
     });
     $($exitMenuButton.menubutton('options').menu).menu({
-        onClick:function (item) {
+        onClick: function (item) {
             if ("logout-button" == item.name) {
                 $('#logout-dialog').dialog('open');
             } else if ("exit-button" == item.name) {
@@ -42,14 +42,91 @@ function initTopMenu() {
     });
 }
 
-/* 左边菜单栏绑定单击事件 */
+/**
+ * 初始化菜单栏
+ */
 function initLeftMenu() {
-    $('#menu').find('ul li a').click(function () {
+    var leftMenus = {
+        "menus": [
+            {
+                "menuId": 1, "menuName": "系统管理", "icon": "icon-dannis-setting",
+                "menus": [
+                    {"menuId": 1, "menuName": "用户管理", "icon": "", "url": "page/userManagement.html"},
+                    {"menuId": 1, "menuName": "角色管理", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "权限管理", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "系统日志", "icon": "", "url": "page/systemSetting.html"}
+                ]
+            },
+            {
+                "menuId": 1, "menuName": "基础数据", "icon": "icon-dannis-setting",
+                "menus": [
+                    {"menuId": 1, "menuName": "部门管理", "icon": "", "url": "page/departmentManagement.html"},
+                    {"menuId": 1, "menuName": "客户管理", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "货品类别", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "仓库管理", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "货架管理", "icon": "", "url": "page/default.html"}
+                ]
+            },
+            {
+                "menuId": 1, "menuName": "仓库管理", "icon": "icon-dannis-storage",
+                "menus": [
+                    {"menuId": 1, "menuName": "库存查询", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "采购入库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "归还入库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "领用入库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "调库出库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "报废出库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "库存盘点", "icon": "", "url": "page/default.html"}
+                ]
+            },
+            {
+                "menuId": 1, "menuName": "采购管理", "icon": "icon-dannis-storage",
+                "menus": [
+                    {"menuId": 1, "menuName": "商品入库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "商品出库", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "商品类别", "icon": "", "url": "page/default.html"}
+                ]
+            },
+            {
+                "menuId": 1, "menuName": "财务报表", "icon": "icon-dannis-report",
+                "menus": [
+                    {"menuId": 1, "menuName": "用户管理", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "网站设置", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "网站设置", "icon": "", "url": "page/default.html"}
+                ]
+            },
+            {
+                "menuId": 1, "menuName": "关于系统", "icon": "icon-dannis-about",
+                "menus": [
+                    {"menuId": 1, "menuName": "关于本系统", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "使用手册", "icon": "", "url": "page/default.html"}
+                ]
+            }
+        ]
+    };
+
+    $('#left-menu').accordion({
+        animate: false
+    });
+    $.each(leftMenus.menus, function (index1, next1) {
+        var menuList = '<ul>';
+        $.each(next1.menus, function (index2, next2) {
+            menuList += '<li><a ref="' + next2.menuId + '" href="javascript:void(0)" rel=" ' + next2.url + '">' + next2.menuName + '</a></li>';
+        });
+        menuList += '</ul>';
+
+        $('#left-menu').accordion('add', {
+            title: next1.menuName,
+            content: menuList,
+            iconCls: next1.icon
+        });
+    });
+    $('.easyui-accordion ul li a').click(function () {
         var tabTitle = $(this).text();
-        var url = $(this).attr("href");
+        var url = $(this).attr('rel');
         addTab(tabTitle, url);
-        $('#menu').find('ul li a').removeClass("selected");
-        $(this).addClass("selected");
+        $('.easyui-accordion ul li a').removeClass('selected');
+        $(this).addClass('selected');
     });
 }
 
@@ -58,8 +135,8 @@ function initLeftMenu() {
  */
 function initWorkspaceTabs() {
     $("div[id='workspaceTabs']").tabs({
-        border:false,
-        fit:true
+        border: false,
+        fit: true
     });
 }
 
@@ -83,7 +160,7 @@ function addTab(subTitle, url) {
         $tabs.tabs('add', {
             title: subTitle,
             content: content,
-            fit:true,
+            fit: true,
             closable: true,
             height: $mainPanel.height() - 26
         });
@@ -190,7 +267,7 @@ function checkTheme(title) {
     var $iframes = $('iframe');
     if ($iframes.length > 0) {
         var iframeId = 'iframe' + title;
-        for (var i = 0;i < $iframes.length;i++) {
+        for (var i = 0; i < $iframes.length; i++) {
             if (iframeId == $($iframes[i]).attr('id')) {
                 $($iframes[i]).contents().find('link[id="easyuiTheme"]').attr('href', '../' + customThemeHref);
             }
