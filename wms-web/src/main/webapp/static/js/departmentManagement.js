@@ -3,6 +3,7 @@
  */
 var deletingDeptId = -1;
 $(function () {
+    //initPanel();
     initDatagrid();
     initDialog();
     initWindow();
@@ -27,6 +28,12 @@ $(function () {
     });
 });
 
+function initPanel() {
+    $('#department-management-panel').panel({
+        fit:true
+    });
+}
+
 function initDatagrid() {
     var columns = [
         [
@@ -37,9 +44,9 @@ function initDatagrid() {
             {field: "parent.name", title: "上级部门", align: "center", width: 100, fixed: true},
             {field: "createdOn", title: "创建日期", align: "center", width: 130, fixed: true},
             {field: "createdBy", title: "创建者", align: "center", width: 100, fixed: true},
-            {field: "remark", title: "备注", align: "center", width: 180, fixed: true},
+            {field: "remark", title: "备注", align: "center", width: 200},
             {
-                field: "id", title: "操作", align: "center", width: 200,
+                field: "id", title: "操作", align: "center", width: 150, fixed: true,
                 formatter: function (value, row, index) {
                     var detail = '<a class="datagrid-detail-button" onclick="detail(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center" href="javascript:void(0);">详情</a>';
@@ -61,7 +68,7 @@ function initDatagrid() {
         columns: columns,
         fitColumns: true,
         toolbar: "#table_toolbar",
-        onLoadSuccess: function (data) {
+        onLoadSuccess: function () {
             var $detailButton = $('.datagrid-detail-button');
             $detailButton.linkbutton({plain: false});
             $detailButton.addClass("c1");
@@ -111,13 +118,14 @@ function initDialog() {
 }
 
 function initWindow() {
-    $("#add-department-window").window({
+    var $addDepartmentWindow = $("#add-department-window");
+    $addDepartmentWindow.window({
         title:"创建部门",
         width:600,
         height:450,
         modal:true
     });
-    $("#add-department-window").window("close");
+    $addDepartmentWindow.window("close");
 }
 function detail(event, deptId) {
     event.stopPropagation();

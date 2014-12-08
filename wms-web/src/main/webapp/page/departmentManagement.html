@@ -14,25 +14,36 @@
     <script type="text/javascript" src="../static/js/departmentManagement.js"></script>
 </head>
 <body class="easyui-layout">
-<div region="center" border="false" style="padding-top: 8px;">
+<div region="north" border="true" style="margin:2px 0 2px 0;height:60px;padding: 16px 0 0 20px;">
+    <label for="textbox-department-name">部门名称：</label>
+    <input id="textbox-department-name" class="easyui-textbox" style="width:120px"/>
+    <label for="textbox-department-code">部门编号：</label>
+    <input id="textbox-department-code" class="easyui-textbox" style="width:120px"/>
+    <label for="department-select">上级部门：</label>
+    <select id="department-select" class="easyui-combobox" panelHeight="auto"  style="width:120px">
+        <option value="1">部门1</option>
+        <option value="2">部门2</option>
+        <option value="3">部门3</option>
+        <option value="4">部门4</option>
+        <option value="5">部门5</option>
+        <option value="6">部门6</option>
+        <option value="7">部门7</option>
+        <option value="8">部门8</option>
+        <option value="9">部门9</option>
+        <option value="10">部门10</option>
+    </select>
+    <label for="textbox-department-manager">部门经理：</label>
+    <input id="textbox-department-manager" class="easyui-textbox" style="width:120px"/>
+    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+</div>
+<div region="center" border="false">
     <table id="department-datagrid" fit="true">
     </table>
     <div id="table_toolbar" style="padding:2px 5px;">
-        起始日期: <input class="easyui-datebox" style="width:110px">
-        截止日期: <input class="easyui-datebox" style="width:110px">
-        Language:
-        <select class="easyui-combobox" panelHeight="auto" style="width:100px">
-            <option value="java">Java</option>
-            <option value="c">C</option>
-            <option value="basic">Basic</option>
-            <option value="perl">Perl</option>
-            <option value="python">Python</option>
-        </select>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
-
         <div style="padding:2px 5px;">
-            <a href="javascript:void(0);" id="add-dept-btn" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加部门</a>
-            <a href="javascript:void(0);" id="delete-dept-btn" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除部门</a>
+            <a href="javascript:void(0);" id="add-dept-btn" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">添加部门</a>
+            <a href="javascript:void(0);" id="delete-dept-btn" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除部门</a>
+            <a href="javascript:void(0);" id="export-dept-btn" class="easyui-linkbutton" data-options="plain:true">导出EXCEL</a>
         </div>
     </div>
 
