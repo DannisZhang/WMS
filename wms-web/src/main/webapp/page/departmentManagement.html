@@ -50,7 +50,18 @@
     <div id="delete-Department-dialog">
         <p style="margin-left:25px;margin-top:25px">真的要删除该部门吗?</p>
     </div>
-    <div id="add-department-window"></div>
+    <div id="add-department-window" style="padding:5px;">
+        <div class="easyui-layout" data-options="fit:true">
+            <div region="center" style="padding:10px;">
+                <label>部门名称：</label>
+                <input class="asyui-textbox" style="width:120px"/>
+            </div>
+            <div region="south" data-options="border:false" style="text-align:right;padding:5px 0 0;">
+                <a class="easyui-linkbutton" href="javascript:void(0)" onclick="javascript:alert('ok')" style="width:80px">提交</a>
+                <a class="easyui-linkbutton" href="javascript:void(0)" onclick="javascript:alert('ok')" style="width:80px">取消</a>
+            </div>
+        </div>
+    </div>
     <div id="dd" class="easyui-dialog" title="删除部门" style="width:320px;height:150px;"
          data-options="iconCls:'icon-custom-exit',resizable:true,modal:true,closed:true,
                  buttons:[
