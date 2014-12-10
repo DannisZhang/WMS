@@ -22,10 +22,6 @@ $(function () {
             $('#department-datagrid').datagrid('reload');
         });
     });
-
-    $("#add-dept-btn").click(function () {
-        $("#add-department-window").window("open");
-    });
 });
 
 function initPanel() {
@@ -59,6 +55,26 @@ function initDatagrid() {
             }
         ]
     ];
+
+    var toolbar = [{
+        text:'添加部门',
+        iconCls:'icon-add',
+        handler:function(){
+            $("#add-department-window").window("open");
+        }
+    },'-',{
+        text:'删除部门',
+        iconCls:'icon-remove',
+        handler:function(){
+            alert("删除部门");
+        }
+    },'-',{
+        text:'导出EXCEL',
+        handler:function(){
+            alert("导出EXCEL");
+        }
+    }];
+
     $("#department-datagrid").datagrid({
         url: "../department/queryByPage.json",
         pagination: true,
@@ -67,7 +83,7 @@ function initDatagrid() {
         loadMsg: '数据加载中...',
         columns: columns,
         fitColumns: true,
-        toolbar: "#table_toolbar",
+        toolbar: toolbar,
         onLoadSuccess: function () {
             var $detailButton = $('.datagrid-detail-button');
             $detailButton.linkbutton({plain: false});
