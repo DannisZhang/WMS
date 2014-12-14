@@ -48,3 +48,26 @@
 .easyui-accordion ul li .selected {
     background-color: #ABAFB8;
 }
+
+.form{
+}
+
+.form .form-title {
+    margin: 0;
+    font-size: 14px;
+    text-align: left;
+    padding-bottom: 8px;
+    border-bottom: solid 1px #D4D4D4;
+}
+
+.form .form-content {
+    margin: 20px 0;
+}
+
+.form .form-content .form-item {
+    margin: 0 auto 16px 24px;
+    text-align: left;
+}
+.form .form-content .form-item div {
+    display: inline-block;
+}

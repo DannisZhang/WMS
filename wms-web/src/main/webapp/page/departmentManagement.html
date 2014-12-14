@@ -45,13 +45,57 @@
     </div>
     <div id="add-department-window" style="padding:5px;">
         <div class="easyui-layout" data-options="fit:true">
-            <div region="center" style="padding:10px;">
-                <label>部门名称：</label>
-                <input class="asyui-textbox" style="width:120px"/>
+            <div region="center" data-options="border:false" style="padding:10px;">
+                <form class="form">
+                    <div class="form-title">部门信息</div>
+                    <div class="form-content">
+                        <div class="form-item">
+                            <div style="width:80px;">部门名称：</div>
+                            <div><input type="text" class="easyui-textbox" id="name" style="width:160px;"/></div>
+                        </div>
+                        <div class="form-item">
+                            <div style="width:80px;">上级部门：</div>
+                            <div>
+                                <select class="easyui-combobox" id="parent" style="width:160px;">
+                                    <option value="1">财务部</option>
+                                    <option value="2">信息技术部</option>
+                                    <option value="3">产品部</option>
+                                    <option value="4">客户服务部</option>
+                                    <option value="5">设计部</option>
+                                    <option value="6">运营部</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div style="width:80px;">部门经理：</div>
+                            <div>
+                                <select class="easyui-combobox" id="manager" style="width:160px;">
+                                    <option value="1">张三</option>
+                                    <option value="2">李四</option>
+                                    <option value="3">王五</option>
+                                    <option value="4">钱多多</option>
+                                    <option value="5">张无忌</option>
+                                    <option value="6">王麻子</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-item">
+                            <div style="width: 80px;">成立日期：</div>
+                            <input class="easyui-datebox" style="width: 160px;"/>
+                        </div>
+                        <div class="form-item">
+                            <div style="width:80px;">备注信息：</div>
+                            <div>
+                                <input type="text" class="easyui-textbox"
+                                       data-options="multiline:true" style="height: 60px;width: 160px;"/>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
             <div region="south" data-options="border:false" style="text-align:right;padding:5px 0 0;">
-                <a class="easyui-linkbutton" href="javascript:void(0)" onclick="alert('ok')" style="width:80px">提交</a>
                 <a class="easyui-linkbutton" href="javascript:void(0)" onclick="alert('ok')" style="width:80px">取消</a>
+                <a class="easyui-linkbutton" href="javascript:void(0)" onclick="$('#add-department-window').dialog('close')" style="width:80px">提交</a>
             </div>
         </div>
     </div>
