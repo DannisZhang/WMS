@@ -25,8 +25,11 @@ public class DepartmentWebUtil {
   public static Department convertToBo(DepartmentDto dto) {
     Department department = new Department();
     department.setId(dto.getId());
-    department.setName(dto.getName());
+    department.setCnName(dto.getCnName());
+    department.setEnName(dto.getEnName());
     department.setCode(dto.getCode());
+    department.setLocation(dto.getLocation());
+    department.setEstablishedDate(DateUtil.stringToDate(dto.getEstablishedDate()));
 
     Department parent = new Department();
     parent.setId(dto.getParentId());
@@ -49,16 +52,22 @@ public class DepartmentWebUtil {
   public static DepartmentVo convertToVo(Department bo) {
     DepartmentVo departmentVo = new DepartmentVo();
     departmentVo.setId(bo.getId());
-    departmentVo.setName(bo.getName());
+    departmentVo.setCnName(bo.getCnName());
+    departmentVo.setEnName(bo.getEnName());
     departmentVo.setCode(bo.getCode());
+    departmentVo.setLocation(bo.getLocation());
+    departmentVo.setEstablishedDate(DateUtil.dateToString(bo.getEstablishedDate()));
     departmentVo.setRemark(bo.getRemark());
 
 
     if (null != bo.getParent()) {
       DepartmentVo parent = new DepartmentVo();
       parent.setId(bo.getParent().getId());
-      parent.setName(bo.getParent().getName());
+      parent.setCnName(bo.getParent().getCnName());
+      parent.setEnName(bo.getParent().getEnName());
       parent.setCode(bo.getParent().getCode());
+      parent.setLocation(bo.getParent().getLocation());
+      parent.setEstablishedDate(DateUtil.dateToString(bo.getParent().getEstablishedDate()));
       departmentVo.setParent(parent);
     }
 
@@ -70,9 +79,9 @@ public class DepartmentWebUtil {
       departmentVo.setManager(manager);
     }
 
-    departmentVo.setCreatedOn(DateUtil.dateToString(bo.getCreatedOn()));
+    departmentVo.setCreatedOn(DateUtil.dateTimeToString(bo.getCreatedOn()));
     departmentVo.setCreatedBy(bo.getCreatedBy());
-    departmentVo.setModifiedOn(DateUtil.dateToString(bo.getModifiedOn()));
+    departmentVo.setModifiedOn(DateUtil.dateTimeToString(bo.getModifiedOn()));
     departmentVo.setModifiedBy(bo.getModifiedBy());
 
     return departmentVo;

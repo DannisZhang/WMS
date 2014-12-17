@@ -18,6 +18,14 @@ public class BaseEntity {
      */
     protected String name;
     /**
+     * The Chinese name of department
+     */
+    protected String cnName;
+    /**
+     * The English name of department
+     */
+    protected String enName;
+    /**
      * The time of creation
      */
     protected Date createdOn;
@@ -48,6 +56,22 @@ public class BaseEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCnName() {
+        return cnName;
+    }
+
+    public void setCnName(String cnName) {
+        this.cnName = cnName;
+    }
+
+    public String getEnName() {
+        return enName;
+    }
+
+    public void setEnName(String enName) {
+        this.enName = enName;
     }
 
     public Date getCreatedOn() {

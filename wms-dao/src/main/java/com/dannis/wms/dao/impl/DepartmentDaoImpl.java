@@ -102,4 +102,13 @@ public class DepartmentDaoImpl implements DepartmentDao {
     BigInteger bigInteger = (BigInteger)query.list().get(0);
     return bigInteger.longValue();
   }
+
+  @Override
+  public long getMaxId() {
+    Session session = sessionFactory.openSession();
+    String sql = "SELECT LAST_INSERT_ID()";
+    Query query = session.createSQLQuery(sql);
+    BigInteger bigInteger = (BigInteger)query.list().get(0);
+    return bigInteger.longValue();
+  }
 }

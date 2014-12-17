@@ -14,8 +14,11 @@ public class DepartmentServiceUtil {
   public static DepartmentPo covertToPo(Department department) {
     DepartmentPo po = new DepartmentPo();
     po.setId(department.getId());
-    po.setName(department.getName());
+    po.setCnName(department.getCnName());
+    po.setEnName(department.getEnName());
     po.setCode(department.getCode());
+    po.setLocation(department.getLocation());
+    po.setEstablishedDate(department.getEstablishedDate());
     po.setRemark(department.getRemark());
 
     if (null != department.getParent()) {
@@ -33,8 +36,11 @@ public class DepartmentServiceUtil {
   public static Department convertToBo(DepartmentPo po) {
     Department department = new Department();
     department.setId(po.getId());
-    department.setName(po.getName());
+    department.setCnName(po.getCnName());
+    department.setEnName(po.getEnName());
     department.setCode(po.getCode());
+    department.setLocation(po.getLocation());
+    department.setEstablishedDate(po.getEstablishedDate());
     department.setRemark(po.getRemark());
 
     Department parent = new Department();

@@ -31,6 +31,7 @@ public class DepartmentServiceImpl implements DepartmentService {
   public BaseResult addDepartment(Department department) {
     BaseResult result = new BaseResult(BaseResult.ResultCode.SUCCESS, "添加部门成功");
     try {
+      department.setCode(generateCode());
       departmentDao.addDepartment(DepartmentServiceUtil.covertToPo(department));
     } catch (Exception e) {
       result.setCode(BaseResult.ResultCode.FAILED);
@@ -136,5 +137,11 @@ public class DepartmentServiceImpl implements DepartmentService {
       result.setMessage("查询部门失败");
     }
     return result;
+  }
+
+  private String generateCode() {
+    long maxId = departmentDao.getMaxId();
+    maxId++;
+    return  "DEPT" + maxId / 100 + (maxId % 100) / 10 + (maxId % 100) % 10;
   }
 }

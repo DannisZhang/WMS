@@ -8,8 +8,11 @@
         <id name="id" column="id">
             <generator class="increment"/>
         </id>
-        <property name="name" type="string" column="name"/>
+        <property name="cnName" type="string" column="name_cn"/>
+        <property name="enName" type="string" column="name_en"/>
         <property name="code" type="string" column="code"/>
+        <property name="location" type="string" column="location"/>
+        <property name="establishedDate" type="timestamp" column="established_date"/>
         <property name="parentId" type="int" column="parent_id"/>
         <property name="remark" type="string" column="remark"/>
         <property name="status" type="string" column="status"/>

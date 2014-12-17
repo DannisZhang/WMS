@@ -34,7 +34,7 @@ public class DepartmentController {
    * @param dto department DTO
    * @return result
    */
-  @RequestMapping(value = "/add.json")
+  @RequestMapping(value = "/add.json",method = RequestMethod.POST)
   @ResponseBody
   public BaseResult addDepartment(DepartmentDto dto) {
     Department department = DepartmentWebUtil.convertToBo(dto);

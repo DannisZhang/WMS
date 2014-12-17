@@ -7,6 +7,7 @@ $(function () {
     initDatagrid();
     initDialog();
     initWindow();
+    initEditDepartmentDialog();
 
     $("#delete-dept-btn").click(function () {
         var rows = $('#department-datagrid').datagrid('getChecked');
@@ -34,11 +35,11 @@ function initDatagrid() {
     var columns = [
         [
             {field: 'ck', checkbox: true},
-            {field: "name", title: "名称", align: "center", width: 120, fixed: true},
+            {field: "cnName", title: "中文名称", align: "center", width: 120, fixed: true},
+            {field: "enName", title: "英文名称", align: "center", width: 120, fixed: true},
             {field: "code", title: "编号", align: "center", width: 100, fixed: true},
-            {field: "manager.name", title: "部门经理", align: "center", width: 100, fixed: true},
-            {field: "parent.name", title: "上级部门", align: "center", width: 100, fixed: true},
-            {field: "createdOn", title: "创建日期", align: "center", width: 130, fixed: true},
+            {field: "establishedDate", title: "成立日期", align: "center", width: 120, fixed: true},
+            {field: "createdOn", title: "创建时间", align: "center", width: 130, fixed: true},
             {field: "createdBy", title: "创建者", align: "center", width: 100, fixed: true},
             {field: "remark", title: "备注", align: "center", width: 200},
             {
@@ -67,6 +68,11 @@ function initDatagrid() {
         iconCls:'icon-remove',
         handler:function(){
             alert("删除部门");
+        }
+    },'-',{
+        text:'批量导入',
+        handler:function(){
+            alert("批量导入");
         }
     },'-',{
         text:'导出EXCEL',
@@ -137,12 +143,25 @@ function initWindow() {
     var $addDepartmentWindow = $("#add-department-window");
     $addDepartmentWindow.window({
         title:"创建部门",
-        width:600,
+        width:500,
         height:450,
         modal:true
     });
     $addDepartmentWindow.window("close");
 }
+
+function initEditDepartmentDialog() {
+    $("#edit-department-dialog").dialog({
+        title:"修改部门",
+        width:500,
+        height:450,
+        closed:true,
+        cache:false,
+        modal:true,
+        buttons:"#dialog-buttons"
+    });
+}
+
 function detail(event, deptId) {
     event.stopPropagation();
     alert("详情");
@@ -150,11 +169,36 @@ function detail(event, deptId) {
 
 function edit(event, deptId) {
     event.stopPropagation();
-    alert("修改");
+    $("#edit-department-dialog").dialog("open");
 }
 
 function deleteDeptById(event, deptId) {
     event.stopPropagation();
     deletingDeptId = deptId;
     $("#delete-Department-dialog").dialog("open");
+}
+
+function saveDepartment() {
+    var $addDepartmentWindow = $('#add-department-window');
+    var params = {};
+    params.cnName = $addDepartmentWindow.find('input[id="cnName"]').val();
+    params.enName = $addDepartmentWindow.find('input[id="enName"]').val();
+    params.location = $addDepartmentWindow.find('input[id="location"]').val();
+    params.establishedDate = $addDepartmentWindow.find('#establishedDate').datebox('getValue');
+    params.parentId = $addDepartmentWindow.find('#parent').combobox('getValue');
+    params.managerId = $addDepartmentWindow.find('#manager').combobox('getValue');
+    params.remark = $addDepartmentWindow.find('#remark').textbox('getValue');
+
+    console.log(params)
+    $.ajax({
+        url:'../department/add.json',
+        method:'post',
+        data:params,
+        async:false,
+        success: function (result) {
+            alert(result.message);
+            $('#add-department-window').dialog('close');
+            $('#department-datagrid').datagrid('reload');
+        }
+    });
 }

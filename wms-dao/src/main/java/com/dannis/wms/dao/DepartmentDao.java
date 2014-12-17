@@ -73,4 +73,10 @@ public interface DepartmentDao {
    * @return total number of departments
    */
   long getTotal(Map<String, String> queryParams);
+
+  /**
+   * Retrieve the max id of department
+   * @return max id of department
+   */
+  long getMaxId();
 }

@@ -12,13 +12,25 @@ public class DepartmentVo {
    */
   private int id;
   /**
-   * The name of entity
+   * The Chinese name of department
    */
-  private String name;
+  private String cnName;
+  /**
+   * The English name of department
+   */
+  private String enName;
   /**
    * The code of department
    */
   private String code;
+  /**
+   * The location of department
+   */
+  private String location;
+  /**
+   * The date of department was established
+   */
+  private String establishedDate;
   /**
    * The leader of department
    */
@@ -64,12 +76,20 @@ public class DepartmentVo {
     this.id = id;
   }
 
-  public String getName() {
-    return name;
+  public String getCnName() {
+    return cnName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setCnName(String cnName) {
+    this.cnName = cnName;
+  }
+
+  public String getEnName() {
+    return enName;
+  }
+
+  public void setEnName(String enName) {
+    this.enName = enName;
   }
 
   public String getCode() {
@@ -78,6 +98,22 @@ public class DepartmentVo {
 
   public void setCode(String code) {
     this.code = code;
+  }
+
+  public String getLocation() {
+    return location;
+  }
+
+  public void setLocation(String location) {
+    this.location = location;
+  }
+
+  public String getEstablishedDate() {
+    return establishedDate;
+  }
+
+  public void setEstablishedDate(String establishedDate) {
+    this.establishedDate = establishedDate;
   }
 
   public EmployeeVo getManager() {

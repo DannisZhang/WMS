@@ -22,8 +22,11 @@ IF EXISTS `t_dept`;
 
 CREATE TABLE `t_dept` (
 	`id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-	`name` VARCHAR (64) NOT NULL,
+	`name_cn` VARCHAR (64) NOT NULL,
+	`name_en` VARCHAR (64) NOT NULL,
 	`code` VARCHAR (16) NOT NULL,
+	`location` VARCHAR (128) NOT NULL,
+	`established_date` TIMESTAMP NULL,
 	`parent_id` INT (16) UNSIGNED NOT NULL,
 	`remark` VARCHAR (255) NULL,
 	`status` VARCHAR (16) NOT NULL,

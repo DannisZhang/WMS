@@ -2,6 +2,7 @@ package com.dannis.wms.entity;
 
 import com.dannis.wms.common.constant.Constants;
 
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -15,6 +16,14 @@ public class Department extends BaseEntity {
      * The code of department
      */
     private String code;
+    /**
+     * The location of department
+     */
+    private String location;
+    /**
+     * The date of department was established
+     */
+    private Date establishedDate;
     /**
      * The leader of department
      */
@@ -44,12 +53,28 @@ public class Department extends BaseEntity {
         this.code = code;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public Date getEstablishedDate() {
+        return establishedDate;
+    }
+
+    public void setEstablishedDate(Date establishedDate) {
+        this.establishedDate = establishedDate;
+    }
+
     public Employee getManager() {
         return manager;
     }
 
-    public void setManager(Employee leader) {
-        this.manager = leader;
+    public void setManager(Employee manager) {
+        this.manager = manager;
     }
 
     public Department getParent() {
