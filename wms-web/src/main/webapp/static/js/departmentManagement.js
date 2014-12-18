@@ -6,8 +6,7 @@ $(function () {
     //initPanel();
     initDatagrid();
     initDialog();
-    initWindow();
-    initEditDepartmentDialog();
+    //initWindow();
 
     $("#delete-dept-btn").click(function () {
         var rows = $('#department-datagrid').datagrid('getChecked');
@@ -60,8 +59,8 @@ function initDatagrid() {
     var toolbar = [{
         text:'添加部门',
         iconCls:'icon-add',
-        handler:function(){
-            $("#add-department-window").window("open");
+        handler:function() {
+            add();
         }
     },'-',{
         text:'删除部门',
@@ -104,7 +103,38 @@ function initDatagrid() {
     });
 }
 
+function initWindow() {
+    var $addDepartmentWindow = $("#add-department-window");
+    $addDepartmentWindow.window({
+        title:"创建部门",
+        width:500,
+        height:450,
+        modal:true
+    });
+    $addDepartmentWindow.window("close");
+}
+
 function initDialog() {
+    $("#add-department-dialog").dialog({
+        title:"新建部门",
+        width:500,
+        height:450,
+        closed:true,
+        cache:false,
+        modal:true,
+        buttons:"#add-department-dialog-buttons"
+    });
+
+    $("#edit-department-dialog").dialog({
+        title:"修改部门",
+        width:500,
+        height:450,
+        closed:true,
+        cache:false,
+        modal:true,
+        buttons:"#edit-department-dialog-buttons"
+    });
+
     $("#delete-Department-dialog").dialog({
         title: "删除部门",
         width: 320,
@@ -139,37 +169,18 @@ function initDialog() {
     });
 }
 
-function initWindow() {
-    var $addDepartmentWindow = $("#add-department-window");
-    $addDepartmentWindow.window({
-        title:"创建部门",
-        width:500,
-        height:450,
-        modal:true
-    });
-    $addDepartmentWindow.window("close");
-}
-
-function initEditDepartmentDialog() {
-    $("#edit-department-dialog").dialog({
-        title:"修改部门",
-        width:500,
-        height:450,
-        closed:true,
-        cache:false,
-        modal:true,
-        buttons:"#dialog-buttons"
-    });
-}
-
-function detail(event, deptId) {
-    event.stopPropagation();
-    alert("详情");
+function add() {
+    $("#add-department-dialog").dialog("open");
 }
 
 function edit(event, deptId) {
     event.stopPropagation();
     $("#edit-department-dialog").dialog("open");
+}
+
+function detail(event, deptId) {
+    event.stopPropagation();
+    alert("详情");
 }
 
 function deleteDeptById(event, deptId) {
@@ -179,17 +190,15 @@ function deleteDeptById(event, deptId) {
 }
 
 function saveDepartment() {
-    var $addDepartmentWindow = $('#add-department-window');
+    var $addDepartmentWindow = $('#add-department-dialog');
     var params = {};
-    params.cnName = $addDepartmentWindow.find('input[id="cnName"]').val();
-    params.enName = $addDepartmentWindow.find('input[id="enName"]').val();
-    params.location = $addDepartmentWindow.find('input[id="location"]').val();
-    params.establishedDate = $addDepartmentWindow.find('#establishedDate').datebox('getValue');
-    params.parentId = $addDepartmentWindow.find('#parent').combobox('getValue');
-    params.managerId = $addDepartmentWindow.find('#manager').combobox('getValue');
-    params.remark = $addDepartmentWindow.find('#remark').textbox('getValue');
-
-    console.log(params)
+    params.cnName = $addDepartmentWindow.find('input[name="cnName"]').val();
+    params.enName = $addDepartmentWindow.find('input[name="enName"]').val();
+    params.location = $addDepartmentWindow.find('input[name="location"]').val();
+    params.establishedDate = $addDepartmentWindow.find('#add-established-date').datebox('getValue');
+    params.parentId = $addDepartmentWindow.find('#add-parent').combobox('getValue');
+    params.managerId = $addDepartmentWindow.find('#add-manager').combobox('getValue');
+    params.remark = $addDepartmentWindow.find('#add-remark').textbox('getValue');
     $.ajax({
         url:'../department/add.json',
         method:'post',
@@ -197,7 +206,30 @@ function saveDepartment() {
         async:false,
         success: function (result) {
             alert(result.message);
-            $('#add-department-window').dialog('close');
+            $('#add-department-dialog').dialog('close');
+            $('#department-datagrid').datagrid('reload');
+        }
+    });
+}
+
+function editDepartment() {
+    var $addDepartmentWindow = $('#edit-department-dialog');
+    var params = {};
+    params.cnName = $addDepartmentWindow.find('input[name="cnName"]').val();
+    params.enName = $addDepartmentWindow.find('input[name="enName"]').val();
+    params.location = $addDepartmentWindow.find('input[name="location"]').val();
+    params.establishedDate = $addDepartmentWindow.find('#edit-established-date').datebox('getValue');
+    params.parentId = $addDepartmentWindow.find('#edit-parent').combobox('getValue');
+    params.managerId = $addDepartmentWindow.find('#edit-manager').combobox('getValue');
+    params.remark = $addDepartmentWindow.find('#edit-remark').textbox('getValue');
+    $.ajax({
+        url:'../department/update.json',
+        method:'post',
+        data:params,
+        async:false,
+        success: function (result) {
+            alert(result.message);
+            $('#edit-department-dialog').dialog('close');
             $('#department-datagrid').datagrid('reload');
         }
     });

@@ -72,7 +72,7 @@ public class DepartmentController {
    * @param dto department DTO
    * @return result
    */
-  @RequestMapping("/updateDepartment.json")
+  @RequestMapping("/update.json")
   @ResponseBody
   public BaseResult updateDepartment(DepartmentDto dto) {
     Department department = DepartmentWebUtil.convertToBo(dto);
