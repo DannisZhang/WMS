@@ -274,3 +274,25 @@ function checkTheme(title) {
         }
     }
 }
+
+/**
+ * DateBox格式化器
+ * @param date 日期对象
+ * @returns {string} 格式化日期字符串，如：2014-12-22
+ */
+function dateBoxFormatter(date) {
+    return date ? date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() : "";
+}
+
+/**
+ * DateBox解析器
+ * @param dateString 日期字符串，格式：yyyy-MM-dd
+ * @returns {Date} 日期对象
+ */
+function dateBoxParser(dateString) {
+    if (dateString || dateString.trim() != "") {
+        return new Date(dateString.replaceAll("-",","));
+    } else {
+        return new Date();
+    }
+}

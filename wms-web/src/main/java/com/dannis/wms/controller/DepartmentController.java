@@ -86,7 +86,7 @@ public class DepartmentController {
    * @param deptId department id
    * @return result
    */
-  @RequestMapping(value = "/queryById.json")
+  @RequestMapping(value = "/queryById.json",method = RequestMethod.GET)
   @ResponseBody
   public SingleQueryResult<DepartmentVo> queryDepartmentById(int deptId) {
     SingleQueryResult<Department> queryResult = departmentService.queryDepartment(deptId);

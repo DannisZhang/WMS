@@ -38,9 +38,8 @@ public interface DepartmentDao {
    * Update a department
    *
    * @param department department will be updated
-   * @return true indicate updated successful,false indicate failed
    */
-  boolean updateDepartment(DepartmentPo department);
+  void updateDepartment(DepartmentPo department);
 
   /**
    * Get a department according to specified id

@@ -37,9 +37,8 @@ function initDatagrid() {
             {field: "cnName", title: "中文名称", align: "center", width: 120, fixed: true},
             {field: "enName", title: "英文名称", align: "center", width: 120, fixed: true},
             {field: "code", title: "编号", align: "center", width: 100, fixed: true},
+            {field: "location", title: "部门地址", align: "center", width: 130, fixed: true},
             {field: "establishedDate", title: "成立日期", align: "center", width: 120, fixed: true},
-            {field: "createdOn", title: "创建时间", align: "center", width: 130, fixed: true},
-            {field: "createdBy", title: "创建者", align: "center", width: 100, fixed: true},
             {field: "remark", title: "备注", align: "center", width: 200},
             {
                 field: "id", title: "操作", align: "center", width: 150, fixed: true,
@@ -115,26 +114,15 @@ function initWindow() {
 }
 
 function initDialog() {
-    $("#add-department-dialog").dialog({
+    $("#edit-department-dialog").dialog({
         title:"新建部门",
         width:500,
         height:450,
         closed:true,
         cache:false,
         modal:true,
-        buttons:"#add-department-dialog-buttons"
+        buttons:"#dialog-buttons"
     });
-
-    $("#edit-department-dialog").dialog({
-        title:"修改部门",
-        width:500,
-        height:450,
-        closed:true,
-        cache:false,
-        modal:true,
-        buttons:"#edit-department-dialog-buttons"
-    });
-
     $("#delete-Department-dialog").dialog({
         title: "删除部门",
         width: 320,
@@ -170,17 +158,21 @@ function initDialog() {
 }
 
 function add() {
-    $("#add-department-dialog").dialog("open");
-}
-
-function edit(event, deptId) {
-    event.stopPropagation();
-    $("#edit-department-dialog").dialog("open");
+    clearEditDepartmentForm();
+    $("#edit-department-dialog").dialog({title:"添加部门"}).dialog("open");
 }
 
 function detail(event, deptId) {
     event.stopPropagation();
     alert("详情");
+}
+
+function clearEditDepartmentForm() {
+    var $editDepartmentDialog = $("#edit-department-dialog").dialog();
+    $editDepartmentDialog.find("#cnName").textbox("setValue","");
+    $editDepartmentDialog.find("#enName").textbox("setValue","");
+    $editDepartmentDialog.find("#location").textbox("setValue","");
+    $editDepartmentDialog.find("#remark").textbox("setValue","");
 }
 
 function deleteDeptById(event, deptId) {
@@ -189,48 +181,62 @@ function deleteDeptById(event, deptId) {
     $("#delete-Department-dialog").dialog("open");
 }
 
-function saveDepartment() {
-    var $addDepartmentWindow = $('#add-department-dialog');
+function editDepartment() {
+    var $editDepartmentDialog = $("#edit-department-dialog");
     var params = {};
-    params.cnName = $addDepartmentWindow.find('input[name="cnName"]').val();
-    params.enName = $addDepartmentWindow.find('input[name="enName"]').val();
-    params.location = $addDepartmentWindow.find('input[name="location"]').val();
-    params.establishedDate = $addDepartmentWindow.find('#add-established-date').datebox('getValue');
-    params.parentId = $addDepartmentWindow.find('#add-parent').combobox('getValue');
-    params.managerId = $addDepartmentWindow.find('#add-manager').combobox('getValue');
-    params.remark = $addDepartmentWindow.find('#add-remark').textbox('getValue');
+    params.cnName = $editDepartmentDialog.find("#cnName").textbox("getValue");
+    params.enName = $editDepartmentDialog.find("#enName").textbox("getValue");
+    params.location = $editDepartmentDialog.find("#location").textbox("getValue");
+    params.establishedDate = $editDepartmentDialog.find("#establishedDate").datebox('getValue');
+    params.parentId = $editDepartmentDialog.find("#parent").combobox('getValue');
+    params.managerId = $editDepartmentDialog.find("#manager").combobox('getValue');
+    params.remark = $editDepartmentDialog.find("#remark").textbox('getValue');
+
+    var departmentId = $editDepartmentDialog.find("input[type='hidden'][id='departmentId']").val();
+    var url = "../department/add.json";
+    if (departmentId != '-1') {
+        url = "../department/update.json";
+        params.id = departmentId;
+    }
     $.ajax({
-        url:'../department/add.json',
+        url:url,
         method:'post',
         data:params,
         async:false,
         success: function (result) {
             alert(result.message);
-            $('#add-department-dialog').dialog('close');
+            $editDepartmentDialog.dialog('close');
             $('#department-datagrid').datagrid('reload');
         }
     });
 }
 
-function editDepartment() {
-    var $addDepartmentWindow = $('#edit-department-dialog');
-    var params = {};
-    params.cnName = $addDepartmentWindow.find('input[name="cnName"]').val();
-    params.enName = $addDepartmentWindow.find('input[name="enName"]').val();
-    params.location = $addDepartmentWindow.find('input[name="location"]').val();
-    params.establishedDate = $addDepartmentWindow.find('#edit-established-date').datebox('getValue');
-    params.parentId = $addDepartmentWindow.find('#edit-parent').combobox('getValue');
-    params.managerId = $addDepartmentWindow.find('#edit-manager').combobox('getValue');
-    params.remark = $addDepartmentWindow.find('#edit-remark').textbox('getValue');
+function edit(event, deptId) {
+    event.stopPropagation();
+    clearEditDepartmentForm();
+    var $editDepartmentDialog = $("#edit-department-dialog").dialog({title:"修改部门"});
     $.ajax({
-        url:'../department/update.json',
-        method:'post',
-        data:params,
-        async:false,
+        url:"../department/queryById.json",
+        method:"get",
+        data:{deptId:deptId},
+        dataType:"json",
         success: function (result) {
-            alert(result.message);
-            $('#edit-department-dialog').dialog('close');
-            $('#department-datagrid').datagrid('reload');
+            if (result && result.data) {
+                var department = result.data;
+                $editDepartmentDialog.find("input[type='hidden'][id='departmentId']").val(department.id);
+                $editDepartmentDialog.find("#cnName").textbox("setValue",department.cnName);
+                $editDepartmentDialog.find("#enName").textbox("setValue",department.enName);
+                if (department.parent) {
+                    $editDepartmentDialog.find("#parent").combobox("setValue",department.parent.id);
+                }
+                if (department.manager) {
+                    $editDepartmentDialog.find("#manager").combobox("select",department.manager.id);
+                }
+                $editDepartmentDialog.find("#location").textbox("setValue",department.location);
+                $editDepartmentDialog.find("#establishedDate").datebox("setValue",department.establishedDate);
+                $editDepartmentDialog.find("#remark").textbox("setValue",department.remark);
+            }
         }
     });
+    $editDepartmentDialog.dialog("open");
 }

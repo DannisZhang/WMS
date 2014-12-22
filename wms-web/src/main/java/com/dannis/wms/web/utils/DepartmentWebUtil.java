@@ -50,6 +50,10 @@ public class DepartmentWebUtil {
    * @return Department VO
    */
   public static DepartmentVo convertToVo(Department bo) {
+    if (null == bo) {
+      return null;
+    }
+
     DepartmentVo departmentVo = new DepartmentVo();
     departmentVo.setId(bo.getId());
     departmentVo.setCnName(bo.getCnName());

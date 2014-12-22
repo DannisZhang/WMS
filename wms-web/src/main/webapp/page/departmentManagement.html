@@ -43,69 +43,6 @@
     <div id="delete-Department-dialog">
         <p style="margin-left:25px;margin-top:25px">真的要删除该部门吗?</p>
     </div>
-    <!-- Add department dialog #################### Begin #################### -->
-    <div id="add-department-dialog">
-        <form class="form" action="">
-            <div class="form-title">部门信息</div>
-            <div class="form-content">
-                <div class="form-item">
-                    <div style="width:80px;">中文名称：</div>
-                    <div><input type="text" class="easyui-textbox" name="cnName" style="width:160px;"/></div>
-                </div>
-                <div class="form-item">
-                    <div style="width:80px;">英文名称：</div>
-                    <div><input type="text" class="easyui-textbox" name="enName" style="width:160px;"/></div>
-                </div>
-                <div class="form-item">
-                    <div style="width:80px;">上级部门：</div>
-                    <div>
-                        <select class="easyui-combobox" name="parent" id="add-parent" style="width:160px;">
-                            <option value="1">财务部</option>
-                            <option value="2">信息技术部</option>
-                            <option value="3">产品部</option>
-                            <option value="4">客户服务部</option>
-                            <option value="5">设计部</option>
-                            <option value="6">运营部</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-item">
-                    <div style="width:80px;">部门经理：</div>
-                    <div>
-                        <select class="easyui-combobox" name="manager" id="add-manager" style="width:160px;">
-                            <option value="1">张三</option>
-                            <option value="2">李四</option>
-                            <option value="3">王五</option>
-                            <option value="4">钱多多</option>
-                            <option value="5">张无忌</option>
-                            <option value="6">王麻子</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-item">
-                    <div style="width:80px;">办公地址：</div>
-                    <div><input type="text" class="easyui-textbox" name="location" style="width:160px;"/></div>
-                </div>
-                <div class="form-item">
-                    <div style="width: 80px;">成立日期：</div>
-                    <input class="easyui-datebox" name="establishedDate" id="add-established-date" style="width: 160px;"/>
-                </div>
-                <div class="form-item">
-                    <div style="width:80px;">备注信息：</div>
-                    <div>
-                        <input type="text" class="easyui-textbox" name="remark" id="add-remark"
-                               data-options="multiline:true" style="height: 50px;width: 200px;"/>
-                    </div>
-                </div>
-            </div>
-            <input type="hidden" name="id" value=""/>
-        </form>
-    </div>
-    <div id="add-department-dialog-buttons">
-        <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="saveDepartment()" style="width:90px">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="$('#edit-department-dialog').dialog('close')" style="width:90px">取消</a>
-    </div>
-    <!-- Add department dialog #################### End   #################### -->
     <!-- Edit department dialog #################### Begin #################### -->
     <div id="edit-department-dialog">
         <form class="form" action="">
@@ -113,16 +50,16 @@
             <div class="form-content">
                 <div class="form-item">
                     <div style="width:80px;">中文名称：</div>
-                    <div><input type="text" class="easyui-textbox" name="cnName" style="width:160px;"/></div>
+                    <div><input type="text" class="easyui-textbox" id="cnName" style="width:200px;"/></div>
                 </div>
                 <div class="form-item">
                     <div style="width:80px;">英文名称：</div>
-                    <div><input type="text" class="easyui-textbox" name="enName" style="width:160px;"/></div>
+                    <div><input type="text" class="easyui-textbox" id="enName" style="width:200px;"/></div>
                 </div>
                 <div class="form-item">
                     <div style="width:80px;">上级部门：</div>
                     <div>
-                        <select class="easyui-combobox" name="parent" style="width:160px;">
+                        <select class="easyui-combobox" id="parent" style="width:200px;">
                             <option value="1">财务部</option>
                             <option value="2">信息技术部</option>
                             <option value="3">产品部</option>
@@ -135,7 +72,7 @@
                 <div class="form-item">
                     <div style="width:80px;">部门经理：</div>
                     <div>
-                        <select class="easyui-combobox" name="manager" style="width:160px;">
+                        <select class="easyui-combobox" id="manager" style="width:100px;" value="">
                             <option value="1">张三</option>
                             <option value="2">李四</option>
                             <option value="3">王五</option>
@@ -147,24 +84,24 @@
                 </div>
                 <div class="form-item">
                     <div style="width:80px;">办公地址：</div>
-                    <div><input type="text" class="easyui-textbox" name="location" style="width:160px;"/></div>
+                    <div><input type="text" class="easyui-textbox" id="location" style="width:200px;"/></div>
                 </div>
                 <div class="form-item">
                     <div style="width: 80px;">成立日期：</div>
-                    <input class="easyui-datebox" name="establishedDate" id="edit-established-date" style="width: 160px;"/>
+                    <input class="easyui-datebox" id="establishedDate" style="width:100px;"/>
                 </div>
                 <div class="form-item">
                     <div style="width:80px;">备注信息：</div>
                     <div>
-                        <input type="text" class="easyui-textbox" name="remark" id="edit-remark"
-                               data-options="multiline:true" style="height: 50px;width: 200px;"/>
+                        <input type="text" class="easyui-textbox" id="remark"
+                               data-options="multiline:true" style="height: 60px;width: 200px;"/>
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="id" value=""/>
+            <input type="hidden" id="departmentId" value="-1"/>
         </form>
     </div>
-    <div id="edit-department-dialog-buttons">
+    <div id="dialog-buttons">
         <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="editDepartment()" style="width:90px">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel" onclick="$('#edit-department-dialog').dialog('close')" style="width:90px">取消</a>
     </div>

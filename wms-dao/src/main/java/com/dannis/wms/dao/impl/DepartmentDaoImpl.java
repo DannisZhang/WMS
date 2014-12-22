@@ -57,13 +57,23 @@ public class DepartmentDaoImpl implements DepartmentDao {
   }
 
   @Override
-  public boolean updateDepartment(DepartmentPo department) {
-    return false;
+  public void updateDepartment(DepartmentPo department) {
+    String hql = "update DepartmentPo as d set d.cnName = ?,d.enName = ?,d.location = ? where d.id = ?";
+    Session session = sessionFactory.openSession();
+    Query query = session.createQuery(hql)
+            .setString(0,department.getCnName())
+            .setString(1,department.getEnName())
+            .setString(2,department.getLocation())
+            .setInteger(3,department.getId());
+    query.executeUpdate();
   }
 
   @Override
   public DepartmentPo queryDepartment(int deptId) {
-    return null;
+    String hql = "from DepartmentPo as d where d.id=" + deptId;
+    Session session = sessionFactory.openSession();
+    Query query = session.createQuery(hql);
+    return (DepartmentPo)query.uniqueResult();
   }
 
   @Override
