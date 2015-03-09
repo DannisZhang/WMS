@@ -64,6 +64,9 @@
 .icon-lock{
 	background:url('icons/lock.png') no-repeat center center;
 }
+.icon-more{
+	background:url('icons/more.png') no-repeat center center;
+}
 
 
 .icon-mini-add{
@@ -91,6 +94,7 @@
 .icon-large-chart{
 	background:url('icons/large_chart.png') no-repeat center center;
 }
+
 
 .icon-dannis-add{
 	background: url('icons/dannis_add2.png') no-repeat;
