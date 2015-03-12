@@ -1,72 +1,106 @@
-<html>
-<head>
-    <title></title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link id="easyuiTheme" rel="stylesheet" type="text/css" href="../static/easyui/themes/gray/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../static/easyui/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="../static/css/default.css">
-    <script type="text/javascript" src="../static/easyui/jquery.min.js"></script>
-    <script type="text/javascript" src="../static/easyui/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="../static/easyui/locale/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="../static/js/common.js"></script>
-</head>
-<body>
-<table id="department_datagrid" fit="true">
-</table>
-<div id="table_toolbar" style="padding:2px 5px;">
-    起始日期: <input class="easyui-datebox" style="width:110px">
-    截止日期: <input class="easyui-datebox" style="width:110px">
-    Language:
-    <select class="easyui-combobox" panelHeight="auto" style="width:100px">
-        <option value="java">Java</option>
-        <option value="c">C</option>
-        <option value="basic">Basic</option>
-        <option value="perl">Perl</option>
-        <option value="python">Python</option>
-    </select>
-    <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+<div class="easyui-layout" id="userManagement" style="overflow: visible" split="true" fit="true">
+    <div region="north" border="true" style="margin:2px 0 2px 0;height:60px;padding: 16px 0 0 20px;">
+        <label for="textbox-user-name">部门名称：</label>
+        <input id="textbox-user-name" class="easyui-textbox" style="width:120px"/>
+        <label for="textbox-user-code">部门编号：</label>
+        <input id="textbox-user-code" class="easyui-textbox" style="width:120px"/>
+        <label for="user-select">上级部门：</label>
+        <select id="user-select" class="easyui-combobox" panelHeight="auto" style="width:120px">
+            <option value="1">部门1</option>
+            <option value="2">部门2</option>
+            <option value="3">部门3</option>
+            <option value="4">部门4</option>
+            <option value="5">部门5</option>
+            <option value="6">部门6</option>
+            <option value="7">部门7</option>
+            <option value="8">部门8</option>
+            <option value="9">部门9</option>
+            <option value="10">部门10</option>
+        </select>
+        <label for="textbox-user-manager">部门经理：</label>
+        <input id="textbox-user-manager" class="easyui-textbox" style="width:120px"/>
+        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
+    </div>
+    <div region="center" border="false" style="overflow: visible;">
+        <table id="user-datagrid" fit="true">
+        </table>
 
-    <div style="padding:2px 5px;">
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'">添加部门</a>
-        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove'">删除部门</a>
+        <div id="delete-User-dialog">
+            <p style="margin-left:25px;margin-top:25px">真的要删除该部门吗?</p>
+        </div>
+        <!-- Edit user dialog #################### Begin #################### -->
+        <div id="edit-user-dialog">
+            <form class="form" action="">
+                <div class="form-title">部门信息</div>
+                <div class="form-content">
+                    <div class="form-item">
+                        <div style="width:80px;">中文名称：</div>
+                        <div><input type="text" class="easyui-textbox" id="cnName" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">英文名称：</div>
+                        <div><input type="text" class="easyui-textbox" id="enName" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">上级部门：</div>
+                        <div>
+                            <select class="easyui-combobox" id="parent" style="width:200px;">
+                                <option value="1">财务部</option>
+                                <option value="2">信息技术部</option>
+                                <option value="3">产品部</option>
+                                <option value="4">客户服务部</option>
+                                <option value="5">设计部</option>
+                                <option value="6">运营部</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">部门经理：</div>
+                        <div>
+                            <select class="easyui-combobox" id="manager" style="width:100px;" value="">
+                                <option value="1">张三</option>
+                                <option value="2">李四</option>
+                                <option value="3">王五</option>
+                                <option value="4">钱多多</option>
+                                <option value="5">张无忌</option>
+                                <option value="6">王麻子</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">办公地址：</div>
+                        <div><input type="text" class="easyui-textbox" id="location" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width: 80px;">成立日期：</div>
+                        <input class="easyui-datebox" id="establishedDate" style="width:100px;"/>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">备注信息：</div>
+                        <div>
+                            <input type="text" class="easyui-textbox" id="remark"
+                                   data-options="multiline:true" style="height: 60px;width: 200px;"/>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="userId" value="-1"/>
+            </form>
+        </div>
+        <div id="user-dialog-buttons">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok"  onclick="editUser()"
+               style="width:90px">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
+               onclick="$('#edit-user-dialog').dialog('close')" style="width:90px">取消</a>
+        </div>
+        <!-- Edit user dialog #################### End   #################### -->
+
+        <div id="du" class="easyui-dialog" title="删除部门" style="width:320px;height:150px;"
+             data-options="iconCls:'icon-custom-exit',resizable:true,modal:true,closed:true,
+                 buttons:[
+                 {text:'是的',iconCls:'icon-ok',handler:function(){alert('YES')}},
+                 {text:'不是',iconCls:'icon-no',handler:function(){alert('NO')}}
+                 ]">
+        </div>
     </div>
 </div>
-<script type="text/javascript">
-    $(function () {
-        initDatagrid();
-    });
-
-    function initDatagrid() {
-        var columns = [
-            [
-                {checkbox: true},
-                {field: "code", title: "编号", align: "center", width: 100},
-                {field: "name", title: "姓名", align: "center", width: 120},
-                {field: "gender", title: "性别", align: "center", width: 100},
-                {field: "age", title: "年龄", align: "center", width: 90},
-                {field: "position.name", title: "职位", align: "center", width: 90},
-                {field: "role", title: "角色", align: "center", width: 90},
-                {field: "createdOn", title: "创建日期", align: "center", width: 120},
-                {field: "createdBy", title: "创建者", align: "center", width: 120},
-                {field: "remark", title: "备注", align: "center", width: 180},
-                {
-                    filed: "action", title: "操作", align: "center", width: 150,
-                    formatter: function (value, row, index) {
-                        var edit = '<a href="#" class="easyui-linkbutton">修改</a>';
-                        var del = '<a href="#" class="easyui-linkbutton">删除</a>';
-                        return edit + del;
-                    }
-                }
-            ]
-        ];
-        $("#department_datagrid").datagrid({
-            url: "../department/queryByPage.do",
-            pagination: true,
-            loadMsg: '数据加载中...',
-            columns: columns,
-            toolbar: "#table_toolbar"
-        });
-    }
-</script>
-</body>
-</html>
+<script type="text/javascript" src="static/js/userManagement.js"></script>

@@ -11,6 +11,7 @@ function init() {
     $('body').layout();
     showCurrentTime();
     initCalendar();
+    loadWorkbenches();
     if ($.cookie('easyuiThemeName')) {
         changeTheme($.cookie('easyuiThemeName'));
     }
@@ -140,6 +141,14 @@ function initWorkspaceTabs() {
     });
 }
 
+/**
+ * 加载工作面板
+ */
+function loadWorkbenches() {
+    var $workbenches = $("#workbenches");
+    $workbenches.find("#userManagementWorkbench").load("page/userManagement.html");
+}
+
 /* Initialize calendar */
 function initCalendar() {
     $('#cc').calendar({
@@ -150,23 +159,38 @@ function initCalendar() {
     });
 }
 
-/* 添加Tab */
-function addTab(subTitle, url) {
-    var $tabs = $('#workspaceTabs');
-    if (!$tabs.tabs('exists', subTitle)) {
-        var $mainPanel = $('#mainPanel');
-        var id = "iframe" + subTitle;
-        var content = '<iframe scrolling="auto" frameborder="0" src="' + url + '" id="' + id + '" style="width:100%;height:100%;"></iframe>';
-        $tabs.tabs('add', {
-            title: subTitle,
-            content: content,
-            fit: true,
-            closable: true,
-            height: $mainPanel.height() - 26
-        });
-        refreshTheme();
-    } else {
-        $tabs.tabs('select', subTitle);
+/**
+ * 添加Tab，若当前Tab已经存在，则选择当前Tab，否则创建一个Tab
+ * @param tabTitle Tab标题
+ * @param url Tab内容URL
+ */
+function addTab(tabTitle, url) {
+    var $workspaceTabs = $('#workspaceTabs');
+    if ($workspaceTabs) {
+        if ($workspaceTabs.tabs('exists', tabTitle)) {//如果Tab已经存在，则选择标题为tabTitle参数值的Tab
+            $workspaceTabs.tabs('select', tabTitle);
+        } else {
+            $.ajax({
+                type: 'post',
+                url: url,
+                cache: false,
+                async: false,
+                success: function (content) {
+                    if (content) {
+                        $workspaceTabs.tabs('add', {
+                            title: tabTitle,
+                            content: content,
+                            fit: true,
+                            closable: true,
+                            height: $('#mainPanel').height() - 26
+                        });
+                    }
+                },
+                error: function () {
+                    alert("Load page error!")
+                }
+            });
+        }
     }
 }
 
@@ -291,7 +315,7 @@ function dateBoxFormatter(date) {
  */
 function dateBoxParser(dateString) {
     if (dateString || dateString.trim() != "") {
-        return new Date(dateString.replaceAll("-",","));
+        return new Date(dateString.replaceAll("-", ","));
     } else {
         return new Date();
     }
