@@ -3,11 +3,11 @@
  */
 var deletingDeptId = -1;
 $(function () {
-    initDatagrid();
+    initUserDatagrid();
     initUserDialog();
 
-    $("#delete-dept-btn").click(function () {
-        var rows = $('#user-datagrid').datagrid('getChecked');
+    $("#deleteUserBtn").click(function () {
+        var rows = $('#userDatagrid').datagrid('getChecked');
         if (rows.length == 0) {
             return;
         }
@@ -17,35 +17,30 @@ $(function () {
         });
         $.post('../user/deleteUsersByIds.json', {ids: ids.join(",")}, function (result) {
             alert(result.message);
-            $('#user-datagrid').datagrid('reload');
+            $('#userDatagrid').datagrid('reload');
         });
     });
 });
 
-function initPanel() {
-    $('#user-management-panel').panel({
-        fit:true
-    });
-}
-
-function initDatagrid() {
+function initUserDatagrid() {
     var columns = [
         [
             {field: 'ck', checkbox: true},
-            {field: "cnName", title: "中文名称", align: "center", width: 120, fixed: true},
-            {field: "enName", title: "英文名称", align: "center", width: 120, fixed: true},
-            {field: "code", title: "编号", align: "center", width: 100, fixed: true},
-            {field: "location", title: "部门地址", align: "center", width: 130, fixed: true},
-            {field: "establishedDate", title: "成立日期", align: "center", width: 120, fixed: true},
-            {field: "remark", title: "备注", align: "center", width: 200},
+            {field: "code", title: "编码", align: "center", width: 120, fixed: true},
+            {field: "name", title: "姓名", align: "center", width: 120, fixed: true},
+            {field: "gender", title: "性别", align: "center", width: 120, fixed: true},
+            {field: "loginName", title: "登录名", align: "center", width: 100, fixed: true},
+            {field: "mobilephone", title: "移动电话", align: "center", width: 130, fixed: true},
+            {field: "telephone", title: "办公电话", align: "center", width: 120, fixed: true},
+            {field: "email", title: "邮箱", align: "center", width: 200},
             {
                 field: "id", title: "操作", align: "center", width: 150, fixed: true,
                 formatter: function (value, row, index) {
-                    var detail = '<a class="datagrid-detail-button" onclick="detail(event,' + row.id + ')"'
+                    var detail = '<a class="datagrid-detail-button" onclick="viewUserDetail(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center" href="javascript:void(0);">详情</a>';
-                    var edit = '<a class="datagrid-edit-button" onclick="edit(event,' + row.id + ')"'
+                    var edit = '<a class="datagrid-edit-button" onclick="editUser(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center;margin-left:5px" href="javascript:void(0);">修改</a>';
-                    var del = '<a class="datagrid-delete-button" onclick="deleteDeptById(event,' + row.id + ')"'
+                    var del = '<a class="datagrid-delete-button" onclick="deleteUserById(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center;margin-left:5px;" href="javascript:void(0);">删除</a>';
                     return detail + edit + del;
                 }
@@ -54,16 +49,16 @@ function initDatagrid() {
     ];
 
     var toolbar = [{
-        text:'添加部门',
+        text:'添加用户',
         iconCls:'icon-add',
         handler:function() {
             addUser();
         }
     },'-',{
-        text:'删除部门',
+        text:'删除用户',
         iconCls:'icon-remove',
         handler:function(){
-            alert("删除部门");
+            alert("删除用户");
         }
     },'-',{
         text:'批量导入',
@@ -77,7 +72,7 @@ function initDatagrid() {
         }
     }];
 
-    $("#user-datagrid").datagrid({
+    $("#userDatagrid").datagrid({
         url: "user/queryByPage.json",
         pagination: true,
         pageSize: 15,
@@ -100,30 +95,19 @@ function initDatagrid() {
     });
 }
 
-function initWindow() {
-    var $addUserWindow = $("#add-user-window");
-    $addUserWindow.window({
-        title:"创建部门",
-        width:500,
-        height:450,
-        modal:true
-    });
-    $addUserWindow.window("close");
-}
-
 function initUserDialog() {
     $.parser.parse("#userManagement");
-    $("#edit-user-dialog").dialog({
-        title:"新建部门",
+    $("#editUserDialog").dialog({
+        title:"添加用户",
         width:500,
-        height:450,
+        height:500,
         closed:true,
         cache:false,
         modal:true,
-        buttons:"#user-dialog-buttons"
+        buttons:"#userDialogButtons"
     });
 
-    $("#delete-User-dialog").dialog({
+    $("#deleteUserDialog").dialog({
         title: "删除部门",
         width: 320,
         height: 150,
@@ -139,18 +123,18 @@ function initUserDialog() {
                     type: "post",
                     dataType: "json",
                     success: function (result) {
-                        $("#user-datagrid").datagrid("reload");
+                        $("#userDatagrid").datagrid("reload");
                     },
                     error: function (result) {
                         alert("删除失败");
                     }
                 });
-                $("#delete-User-dialog").dialog("close");
+                $("#deleteUserDialog").dialog("close");
             }
             },
             {
                 text: '不是', iconCls: 'icon-no', handler: function () {
-                $("#delete-User-dialog").dialog("close");
+                $("#deleteUserDialog").dialog("close");
             }
             }
         ]
@@ -159,7 +143,7 @@ function initUserDialog() {
 
 function addUser() {
     clearEditUserForm();
-    $("#edit-user-dialog").dialog({title:"添加部门"}).dialog("open");
+    $("#editUserDialog").dialog({title:"添加部门"}).dialog("open");
 }
 
 function detail(event, deptId) {
@@ -168,21 +152,19 @@ function detail(event, deptId) {
 }
 
 function clearEditUserForm() {
-    var $editUserDialog = $("#edit-user-dialog").dialog();
-    $editUserDialog.find("#cnName").textbox("setValue","");
-    $editUserDialog.find("#enName").textbox("setValue","");
-    $editUserDialog.find("#location").textbox("setValue","");
-    $editUserDialog.find("#remark").textbox("setValue","");
+    var $editUserDialog = $("#editUserDialog").dialog();
+    $editUserDialog.find("input[name='name']").textbox("setValue","");
+    $editUserDialog.find("input[name='gender']").textbox("setValue","");
+    $editUserDialog.find("input[name='loginName']").textbox("setValue","");
+    $editUserDialog.find("input[name='mobilephone']").textbox("setValue","");
+    $editUserDialog.find("input[name='telephone']").textbox("setValue","");
+    $editUserDialog.find("input[name='email']").textbox("setValue","");
+    $editUserDialog.find("input[name='roles']").textbox("setValue","");
+    $editUserDialog.find("input[name='remark']").textbox("setValue","");
 }
 
-function deleteDeptById(event, deptId) {
-    event.stopPropagation();
-    deletingDeptId = deptId;
-    $("#delete-User-dialog").dialog("open");
-}
-
-function editUser() {
-    var $editUserDialog = $("#edit-user-dialog");
+function saveUser() {
+    var $editUserDialog = $("#editUserDialog");
     var params = {};
     params.cnName = $editUserDialog.find("#cnName").textbox("getValue");
     params.enName = $editUserDialog.find("#enName").textbox("getValue");
@@ -206,17 +188,17 @@ function editUser() {
         success: function (result) {
             alert(result.message);
             $editUserDialog.dialog('close');
-            $('#user-datagrid').datagrid('reload');
+            $('#userDatagrid').datagrid('reload');
         }
     });
 }
 
-function edit(event, deptId) {
+function editUser(event, deptId) {
     event.stopPropagation();
     clearEditUserForm();
-    var $editUserDialog = $("#edit-user-dialog").dialog({title:"修改部门"});
+    var $editUserDialog = $("#editUserDialog").dialog({title:"修改用户"});
     $.ajax({
-        url:"../user/queryById.json",
+        url:"user/queryById.json",
         method:"get",
         data:{deptId:deptId},
         dataType:"json",

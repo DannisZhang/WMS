@@ -48,7 +48,7 @@ public class DepartmentController {
    * @param deptId department id
    * @return result
    */
-  @RequestMapping(value = "deleteDepartmentById.json",method = RequestMethod.POST)
+  @RequestMapping(value = "/deleteDepartmentById.json",method = RequestMethod.POST)
   @ResponseBody
   public BaseResult deleteDepartmentById(int deptId) {
     return departmentService.deleteDepartmentById(deptId);
@@ -60,7 +60,7 @@ public class DepartmentController {
    * @param ids id list
    * @return result
    */
-  @RequestMapping(value = "deleteDepartmentsByIds.json",method = RequestMethod.POST)
+  @RequestMapping(value = "/deleteDepartmentsByIds.json",method = RequestMethod.POST)
   @ResponseBody
   public BaseResult deleteDepartmentsByIds(int[] ids) {
     return departmentService.deleteDepartmentsByIds(ids);

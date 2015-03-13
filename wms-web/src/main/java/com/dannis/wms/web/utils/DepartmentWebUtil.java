@@ -24,7 +24,7 @@ public class DepartmentWebUtil {
    */
   public static Department convertToBo(DepartmentDto dto) {
     Department department = new Department();
-    department.setId(dto.getId());
+    department.setId(Integer.parseInt(dto.getDepartmentId()));
     department.setCnName(dto.getCnName());
     department.setEnName(dto.getEnName());
     department.setCode(dto.getCode());

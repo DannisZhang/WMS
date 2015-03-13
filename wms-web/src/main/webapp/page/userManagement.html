@@ -1,84 +1,77 @@
 <div class="easyui-layout" id="userManagement" style="overflow: visible" split="true" fit="true">
     <div region="north" border="true" style="margin:2px 0 2px 0;height:60px;padding: 16px 0 0 20px;">
-        <label for="textbox-user-name">部门名称：</label>
+        <label for="textbox-user-name">姓名：</label>
         <input id="textbox-user-name" class="easyui-textbox" style="width:120px"/>
-        <label for="textbox-user-code">部门编号：</label>
+        <label for="textbox-user-code">编号：</label>
         <input id="textbox-user-code" class="easyui-textbox" style="width:120px"/>
-        <label for="user-select">上级部门：</label>
-        <select id="user-select" class="easyui-combobox" panelHeight="auto" style="width:120px">
-            <option value="1">部门1</option>
-            <option value="2">部门2</option>
-            <option value="3">部门3</option>
-            <option value="4">部门4</option>
-            <option value="5">部门5</option>
-            <option value="6">部门6</option>
-            <option value="7">部门7</option>
-            <option value="8">部门8</option>
-            <option value="9">部门9</option>
-            <option value="10">部门10</option>
+        <label for="textbox-login-name">登录名：</label>
+        <input id="textbox-login-name" class="easyui-textbox" style="width:120px"/>
+        <label for="textbox-user-gender">性别：</label>
+        <input id="textbox-user-gender" class="easyui-textbox" style="width:120px"/>
+        <label for="user-role-select">角色：</label>
+        <select id="user-role-select" class="easyui-combobox" panelHeight="auto" style="width:120px">
+            <option value="1">角色1</option>
+            <option value="2">角色2</option>
+            <option value="3">角色3</option>
+            <option value="4">角色4</option>
+            <option value="5">角色5</option>
+            <option value="6">角色6</option>
+            <option value="7">角色7</option>
+            <option value="8">角色8</option>
         </select>
-        <label for="textbox-user-manager">部门经理：</label>
-        <input id="textbox-user-manager" class="easyui-textbox" style="width:120px"/>
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">查询</a>
     </div>
     <div region="center" border="false" style="overflow: visible;">
-        <table id="user-datagrid" fit="true">
+        <table id="userDatagrid" fit="true">
         </table>
 
-        <div id="delete-User-dialog">
-            <p style="margin-left:25px;margin-top:25px">真的要删除该部门吗?</p>
+        <div id="deleteUserDialog">
+            <p style="margin-left:25px;margin-top:25px">真的要删除该用户吗?</p>
         </div>
+
         <!-- Edit user dialog #################### Begin #################### -->
-        <div id="edit-user-dialog">
+        <div id="editUserDialog">
             <form class="form" action="">
-                <div class="form-title">部门信息</div>
+                <div class="form-title">用户信息</div>
                 <div class="form-content">
                     <div class="form-item">
-                        <div style="width:80px;">中文名称：</div>
-                        <div><input type="text" class="easyui-textbox" id="cnName" style="width:200px;"/></div>
+                        <div style="width:80px;">姓名：</div>
+                        <div><input type="text" class="easyui-textbox" name="name" style="width:200px;"/></div>
                     </div>
                     <div class="form-item">
-                        <div style="width:80px;">英文名称：</div>
-                        <div><input type="text" class="easyui-textbox" id="enName" style="width:200px;"/></div>
+                        <div style="width:80px;">性别：</div>
+                        <div><input type="text" class="easyui-textbox" name="gender" style="width:200px;"/></div>
                     </div>
                     <div class="form-item">
-                        <div style="width:80px;">上级部门：</div>
+                        <div style="width:80px;">登录名：</div>
+                        <div><input type="text" class="easyui-textbox" name="loginName" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">移动电话：</div>
+                        <div><input type="text" class="easyui-textbox" name="mobilephone" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">办公电话：</div>
+                        <div><input type="text" class="easyui-textbox" name="telephone" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">邮箱：</div>
+                        <div><input type="text" class="easyui-textbox" name="email" style="width:200px;"/></div>
+                    </div>
+                    <div class="form-item">
+                        <div style="width:80px;">角色</div>
                         <div>
-                            <select class="easyui-combobox" id="parent" style="width:200px;">
-                                <option value="1">财务部</option>
-                                <option value="2">信息技术部</option>
-                                <option value="3">产品部</option>
-                                <option value="4">客户服务部</option>
-                                <option value="5">设计部</option>
-                                <option value="6">运营部</option>
+                            <select class="easyui-combobox" name="roles" style="width:200px;">
+                                <option value="1">系统管理员</option>
+                                <option value="2">仓库管理员</option>
+                                <option value="3">普通用户</option>
                             </select>
                         </div>
-                    </div>
-                    <div class="form-item">
-                        <div style="width:80px;">部门经理：</div>
-                        <div>
-                            <select class="easyui-combobox" id="manager" style="width:100px;" value="">
-                                <option value="1">张三</option>
-                                <option value="2">李四</option>
-                                <option value="3">王五</option>
-                                <option value="4">钱多多</option>
-                                <option value="5">张无忌</option>
-                                <option value="6">王麻子</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="form-item">
-                        <div style="width:80px;">办公地址：</div>
-                        <div><input type="text" class="easyui-textbox" id="location" style="width:200px;"/></div>
-                    </div>
-                    <div class="form-item">
-                        <div style="width: 80px;">成立日期：</div>
-                        <input class="easyui-datebox" id="establishedDate" style="width:100px;"/>
                     </div>
                     <div class="form-item">
                         <div style="width:80px;">备注信息：</div>
                         <div>
-                            <input type="text" class="easyui-textbox" id="remark"
+                            <input type="text" class="easyui-textbox" name="remark"
                                    data-options="multiline:true" style="height: 60px;width: 200px;"/>
                         </div>
                     </div>
@@ -86,15 +79,15 @@
                 <input type="hidden" id="userId" value="-1"/>
             </form>
         </div>
-        <div id="user-dialog-buttons">
-            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok"  onclick="editUser()"
+        <div id="userDialogButtons">
+            <a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok"  onclick="saveUser()"
                style="width:90px">保存</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconCls="icon-cancel"
-               onclick="$('#edit-user-dialog').dialog('close')" style="width:90px">取消</a>
+               onclick="$('#editUserDialog').dialog('close')" style="width:90px">取消</a>
         </div>
         <!-- Edit user dialog #################### End   #################### -->
 
-        <div id="du" class="easyui-dialog" title="删除部门" style="width:320px;height:150px;"
+        <div id="du" class="easyui-dialog" title="删除用户" style="width:320px;height:150px;"
              data-options="iconCls:'icon-custom-exit',resizable:true,modal:true,closed:true,
                  buttons:[
                  {text:'是的',iconCls:'icon-ok',handler:function(){alert('YES')}},
