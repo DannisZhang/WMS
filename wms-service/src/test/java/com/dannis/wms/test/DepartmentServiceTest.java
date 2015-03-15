@@ -1,6 +1,6 @@
 package com.dannis.wms.test;
 
-import com.dannis.wms.entity.Department;
+import com.dannis.wms.model.Department;
 import com.dannis.wms.service.DepartmentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,17 +17,17 @@ import javax.annotation.Resource;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"/config/spring/applicationContext-service.xml"})
 public class DepartmentServiceTest extends AbstractJUnit4SpringContextTests {
-  @Resource
-  private DepartmentService departmentService;
+    @Resource
+    private DepartmentService departmentService;
 
-  @Test
-  public void testAdd() {
-    for (int i = 0;i < 20;i++) {
-      Department department = new Department();
-      department.setName("测试部门" + i);
-      department.setCode("DEPT00000" + i);
-      department.setRemark("测试部门");
-      departmentService.addDepartment(department);
+    @Test
+    public void testAdd() {
+        for (int i = 0; i < 20; i++) {
+            Department department = new Department();
+            department.setName("测试部门" + i);
+            department.setCode("DEPT00000" + i);
+            department.setRemark("测试部门");
+            departmentService.addDepartment(department);
+        }
     }
-  }
 }

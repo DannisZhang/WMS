@@ -1,7 +1,7 @@
 package com.dannis.wms.dao.impl;
 
 import com.dannis.wms.dao.DepartmentDao;
-import com.dannis.wms.po.DepartmentPo;
+import com.dannis.wms.entity.DepartmentEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -26,7 +25,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
   private SessionFactory sessionFactory;
 
   @Override
-  public boolean addDepartment(DepartmentPo department) {
+  public boolean addDepartment(DepartmentEntity department) {
     Session session = sessionFactory.openSession();
     session.save(department);
     session.beginTransaction().commit();
@@ -36,7 +35,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
   @Override
   public boolean deleteDepartmentById(int deptId) {
     Session session = sessionFactory.openSession();
-    String hql = "delete DepartmentPo as d where d.id=?";
+    String hql = "delete DepartmentEntity as d where d.id=?";
     Query query = session.createQuery(hql);
     query.setInteger(0,deptId);
     query.executeUpdate();
@@ -46,7 +45,7 @@ public class DepartmentDaoImpl implements DepartmentDao {
   @Override
   public boolean deleteDepartmentsByIds(int[] ids) {
     Session session = sessionFactory.openSession();
-    String hql = "delete DepartmentPo as d where d.id in (";
+    String hql = "delete DepartmentEntity as d where d.id in (";
     for (int id : ids) {
       hql += id + ",";
     }
@@ -57,40 +56,39 @@ public class DepartmentDaoImpl implements DepartmentDao {
   }
 
   @Override
-  public void updateDepartment(DepartmentPo department) {
-    String hql = "update DepartmentPo as d set d.cnName = ?,d.enName = ?,d.location = ? where d.id = ?";
+  public void updateDepartment(DepartmentEntity department) {
+    String hql = "update DepartmentEntity as d set d.name = ?,d.name = ?,d.location = ? where d.id = ?";
     Session session = sessionFactory.openSession();
     Query query = session.createQuery(hql)
-            .setString(0,department.getCnName())
-            .setString(1,department.getEnName())
+            .setString(0,department.getName())
             .setString(2,department.getLocation())
-            .setInteger(3,department.getId());
+            .setLong(3,department.getId());
     query.executeUpdate();
   }
 
   @Override
-  public DepartmentPo queryDepartment(int deptId) {
-    String hql = "from DepartmentPo as d where d.id=" + deptId;
+  public DepartmentEntity queryDepartment(int deptId) {
+    String hql = "from DepartmentEntity as d where d.id=" + deptId;
     Session session = sessionFactory.openSession();
     Query query = session.createQuery(hql);
-    return (DepartmentPo)query.uniqueResult();
+    return (DepartmentEntity)query.uniqueResult();
   }
 
   @Override
-  public List<DepartmentPo> queryDepartments(Map<String, String> queryParams) {
+  public List<DepartmentEntity> queryDepartments(Map<String, String> queryParams) {
 //    String sql = "SELECT id,name,code,remark,created_on,created_by,modified_on,modified_by "
 //            + "FROM t_dept "
 //            + "LIMIT " + queryParams.get("offset") + "," + queryParams.get("limit");
-    String hql = "from DepartmentPo";
+    String hql = "from DepartmentEntity";
     Session session = sessionFactory.openSession();
     Query query = session.createQuery(hql);
     return query.list();
   }
 
   @Override
-  public List<DepartmentPo> queryDepartmentByPage(int start, int maxSize, Map<String, String> queryParams) {
+  public List<DepartmentEntity> queryDepartmentByPage(int start, int maxSize, Map<String, String> queryParams) {
 
-    String hql = "from DepartmentPo";
+    String hql = "from DepartmentEntity";
     if (null != queryParams) {
       //TODO:add condition
     }

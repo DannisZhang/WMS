@@ -1,62 +1,66 @@
-package com.dannis.wms.entity;
-
-import com.dannis.wms.common.constant.Constants;
+package com.dannis.wms.model;
 
 import java.util.Date;
 
 /**
+ * 员工模型类
+ *
  * Created by: Dannis
- * Created on: 2014-11-09 14:14
+ * Created on: 2015-03-15 16:02
  */
-public class Employee extends BaseEntity {
+public class Employee {
     /**
-     * The code of employee
+     * 员工姓名
+     */
+    private String name;
+    /**
+     * 员工编码
      */
     private String code;
     /**
-     * The gender of employee
+     * 性别
      */
     private String gender;
     /**
-     * The age of employee
-     */
-    private int age;
-    /**
-     * The birthday of employee
+     * 出生日期
      */
     private Date birthday;
     /**
-     * The mobile phone No. of employee
+     * 移动电话
      */
-    private String mobilePhone;
+    private String mobilephone;
     /**
-     * The office phone No. of employee
+     * 办公电话
      */
-    private String officePhone;
+    private String telephone;
     /**
-     * The email address of employee
+     * 邮箱
      */
     private String email;
     /**
-     * The address of employee
+     * 住址
      */
     private String address;
     /**
-     * The department of employee belong to
+     * 所属部门
      */
     private Department department;
     /**
-     * The position of employee
+     * 职位
      */
     private Position position;
     /**
-     * The remark of employee
+     * 备注信息
      */
     private String remark;
-    /**
-     * The status of employee
-     */
-    private String status = Constants.STATUS_ACTIVE;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCode() {
         return code;
@@ -74,14 +78,6 @@ public class Employee extends BaseEntity {
         this.gender = gender;
     }
 
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
     public Date getBirthday() {
         return birthday;
     }
@@ -90,20 +86,20 @@ public class Employee extends BaseEntity {
         this.birthday = birthday;
     }
 
-    public String getMobilePhone() {
-        return mobilePhone;
+    public String getMobilephone() {
+        return mobilephone;
     }
 
-    public void setMobilePhone(String mobilePhone) {
-        this.mobilePhone = mobilePhone;
+    public void setMobilephone(String mobilephone) {
+        this.mobilephone = mobilephone;
     }
 
-    public String getOfficePhone() {
-        return officePhone;
+    public String getTelephone() {
+        return telephone;
     }
 
-    public void setOfficePhone(String officePhone) {
-        this.officePhone = officePhone;
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
     }
 
     public String getEmail() {
@@ -144,13 +140,5 @@ public class Employee extends BaseEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

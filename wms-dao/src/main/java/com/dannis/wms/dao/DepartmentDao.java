@@ -1,6 +1,6 @@
 package com.dannis.wms.dao;
 
-import com.dannis.wms.po.DepartmentPo;
+import com.dannis.wms.entity.DepartmentEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -16,7 +16,7 @@ public interface DepartmentDao {
    * @param department department will be added
    * @return true indicate added successful,false indicate failed
    */
-  boolean addDepartment(DepartmentPo department);
+  boolean addDepartment(DepartmentEntity department);
 
   /**
    * Delete a department which id equals the specified id
@@ -39,7 +39,7 @@ public interface DepartmentDao {
    *
    * @param department department will be updated
    */
-  void updateDepartment(DepartmentPo department);
+  void updateDepartment(DepartmentEntity department);
 
   /**
    * Get a department according to specified id
@@ -47,7 +47,7 @@ public interface DepartmentDao {
    * @param deptId specified department id
    * @return which department id equals specified id
    */
-  DepartmentPo queryDepartment(int deptId);
+  DepartmentEntity queryDepartment(int deptId);
 
   /**
    * Query department according to specified query parameters
@@ -64,7 +64,7 @@ public interface DepartmentDao {
    * @param queryParams query parameters
    * @return department list
    */
-  List<DepartmentPo> queryDepartmentByPage(int start, int maxSize, Map<String, String> queryParams);
+  List<DepartmentEntity> queryDepartmentByPage(int start, int maxSize, Map<String, String> queryParams);
 
   /**
    * Query the total number of departments according to specified query parameters

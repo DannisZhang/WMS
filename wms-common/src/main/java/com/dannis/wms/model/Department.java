@@ -1,49 +1,55 @@
-package com.dannis.wms.entity;
-
-import com.dannis.wms.common.constant.Constants;
+package com.dannis.wms.model;
 
 import java.util.Date;
 import java.util.Set;
 
 /**
- * Department entity class
+ * 部门模型类
  *
  * Created by: Dannis
- * Created on: 2014-11-09 13:50
+ * Created on: 2015-03-15 15:52
  */
-public class Department extends BaseEntity {
+public class Department {
     /**
-     * The code of department
+     * 部门名称
+     */
+    private String name;
+    /**
+     * 部门编码
      */
     private String code;
     /**
-     * The location of department
+     * 部门地址
      */
     private String location;
     /**
-     * The date of department was established
+     * 部门成立时间
      */
     private Date establishedDate;
     /**
-     * The leader of department
+     * 部门负责人
      */
     private Employee manager;
     /**
-     * The parent department
+     * 上级部门
      */
     private Department parent;
     /**
-     * The sub-departments
+     * 下级部门
      */
     private Set<Department> children;
     /**
-     * The remark of department
+     * 备注信息
      */
     private String remark;
-    /**
-     * The status of department
-     */
-    private String status = Constants.STATUS_ACTIVE;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getCode() {
         return code;
@@ -99,13 +105,5 @@ public class Department extends BaseEntity {
 
     public void setRemark(String remark) {
         this.remark = remark;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

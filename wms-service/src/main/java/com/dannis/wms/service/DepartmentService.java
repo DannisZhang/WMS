@@ -1,16 +1,14 @@
 package com.dannis.wms.service;
 
-import com.dannis.wms.entity.Department;
+import com.dannis.wms.model.Department;
 import com.dannis.wms.query.QueryParams;
 import com.dannis.wms.query.result.BaseResult;
 import com.dannis.wms.query.result.PaginationQueryResult;
 import com.dannis.wms.query.result.SingleQueryResult;
 
-import java.util.Map;
-
 /**
  * Department service interface
- * <p>
+ * <p/>
  * Created by: Dannis
  * Created on: 2014-11-09 16:54
  */
@@ -53,7 +51,7 @@ public interface DepartmentService {
      * @param deptId specified department id
      * @return which department id equals specified id
      */
-     SingleQueryResult<Department> queryDepartment(int deptId);
+    SingleQueryResult<Department> queryDepartment(int deptId);
 
     /**
      * Query department according to specified query parameters
@@ -65,6 +63,7 @@ public interface DepartmentService {
 
     /**
      * Query department by page
+     *
      * @param queryParams query parameters
      * @return department list
      */

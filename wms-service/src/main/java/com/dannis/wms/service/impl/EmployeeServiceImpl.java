@@ -1,7 +1,7 @@
 package com.dannis.wms.service.impl;
 
 import com.dannis.wms.dao.EmployeeDao;
-import com.dannis.wms.entity.Employee;
+import com.dannis.wms.model.Employee;
 import com.dannis.wms.query.QueryParams;
 import com.dannis.wms.query.result.BaseResult;
 import com.dannis.wms.query.result.PaginationQueryResult;
@@ -16,33 +16,34 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-  /**
-   * Employee DAO
-   */
-  @Autowired
-  private EmployeeDao employeeDao;
-  @Override
-  public BaseResult addEmployee(Employee employee) {
-    return null;
-  }
+    /**
+     * Employee DAO
+     */
+    @Autowired
+    private EmployeeDao employeeDao;
 
-  @Override
-  public BaseResult deleteEmployee(int empId) {
-    return null;
-  }
+    @Override
+    public BaseResult addEmployee(Employee employee) {
+        return null;
+    }
 
-  @Override
-  public BaseResult updateEmployee(Employee employee) {
-    return null;
-  }
+    @Override
+    public BaseResult deleteEmployee(int empId) {
+        return null;
+    }
 
-  @Override
-  public SingleQueryResult<Employee> queryEmployee(int empId) {
-    return null;
-  }
+    @Override
+    public BaseResult updateEmployee(Employee employee) {
+        return null;
+    }
 
-  @Override
-  public PaginationQueryResult<Employee> queryEmployees(QueryParams queryParams) {
-    return null;
-  }
+    @Override
+    public SingleQueryResult<Employee> queryEmployee(int empId) {
+        return null;
+    }
+
+    @Override
+    public PaginationQueryResult<Employee> queryEmployees(QueryParams queryParams) {
+        return null;
+    }
 }

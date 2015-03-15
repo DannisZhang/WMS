@@ -3,25 +3,24 @@
         "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
         "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 
-<hibernate-mapping package="com.dannis.wms.po">
-    <class name="EmployeePo" table="t_emp">
+<hibernate-mapping package="com.dannis.wms.entity">
+    <class name="EmployeeEntity" table="t_emp">
         <id name="id" column="id">
             <generator class="increment"/>
         </id>
         <property name="name" type="string" column="cnName"/>
         <property name="code" type="string" column="code"/>
         <property name="gender" type="string" column="gender"/>
-        <property name="age" type="integer" column="age"/>
         <property name="birthday" type="timestamp" column="birthday"/>
-        <property name="mobilePhone" type="string" column="mobile"/>
-        <property name="officePhone" type="string" column="office"/>
+        <property name="mobilephone" type="string" column="mobilephone"/>
+        <property name="telephone" type="string" column="telephone"/>
         <property name="email" type="string" column="email"/>
         <property name="address" type="string" column="address"/>
         <property name="remark" type="string" column="remark"/>
         <property name="status" type="string" column="status"/>
         <property name="createdOn" type="timestamp" column="created_on"/>
         <property name="createdBy" type="integer" column="created_by"/>
-        <property name="modifiedOn" type="timestamp" column="modified_on"/>
-        <property name="modifiedBy" type="integer" column="modified_by"/>
+        <property name="lastModifiedOn" type="timestamp" column="last_modified_on"/>
+        <property name="lastModifiedBy" type="integer" column="last_modified_by"/>
     </class>
 </hibernate-mapping>

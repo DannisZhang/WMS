@@ -3,11 +3,11 @@
  */
 var deletingDeptId = -1;
 $(function () {
-    initDepartmentDatagrid();
-    initDepartmentDialog();
+    initRoleDatagrid();
+    initRoleDialog();
 
     $("#deleteDeptBtn").click(function () {
-        var rows = $('#departmentDatagrid').datagrid('getChecked');
+        var rows = $('#roleDatagrid').datagrid('getChecked');
         if (rows.length == 0) {
             return;
         }
@@ -15,29 +15,28 @@ $(function () {
         $.each(rows, function (i, row) {
             ids.push(row.id);
         });
-        $.post('../department/deleteDepartmentsByIds.json', {ids: ids.join(",")}, function (result) {
+        $.post('../role/deleteRolesByIds.json', {ids: ids.join(",")}, function (result) {
             alert(result.message);
-            $('#departmentDatagrid').datagrid('reload');
+            $('#roleDatagrid').datagrid('reload');
         });
     });
 });
 
-function initDepartmentDatagrid() {
+function initRoleDatagrid() {
     var columns = [
         [
             {field: 'ck', checkbox: true},
-            {field: "cnName", title: "中文名称", align: "center", width: 120, fixed: true},
-            {field: "enName", title: "英文名称", align: "center", width: 120, fixed: true},
-            {field: "code", title: "编号", align: "center", width: 100, fixed: true},
-            {field: "location", title: "部门地址", align: "center", width: 130, fixed: true},
-            {field: "establishedDate", title: "成立日期", align: "center", width: 120, fixed: true},
-            {field: "remark", title: "备注", align: "center", width: 200},
+            {field: "code", title: "角色编码", align: "center", width: 100, fixed: true},
+            {field: "name", title: "角色名称", align: "center", width: 120, fixed: true},
+            {field: "createdBy", title: "创建者", align: "center", width: 100, fixed: true},
+            {field: "createdOn", title: "创建时间", align: "center", width: 120, fixed: true},
+            {field: "description", title: "角色描述", align: "center", width: 200},
             {
                 field: "id", title: "操作", align: "center", width: 150, fixed: true,
                 formatter: function (value, row, index) {
-                    var detail = '<a class="datagrid-detail-button" onclick="viewDepartmentDetail(event,' + row.id + ')"'
+                    var detail = '<a class="datagrid-detail-button" onclick="viewRoleDetail(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center" href="javascript:void(0);">详情</a>';
-                    var edit = '<a class="datagrid-edit-button" onclick="editDepartment(event,' + row.id + ')"'
+                    var edit = '<a class="datagrid-edit-button" onclick="editRole(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center;margin-left:5px" href="javascript:void(0);">修改</a>';
                     var del = '<a class="datagrid-delete-button" onclick="deleteDeptById(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center;margin-left:5px;" href="javascript:void(0);">删除</a>';
@@ -48,31 +47,21 @@ function initDepartmentDatagrid() {
     ];
 
     var toolbar = [{
-        text:'添加部门',
+        text:'添加角色',
         iconCls:'icon-add',
         handler:function() {
-            addDepartment();
+            addRole();
         }
     },'-',{
-        text:'删除部门',
+        text:'删除角色',
         iconCls:'icon-remove',
         handler:function(){
-            alert("删除部门");
-        }
-    },'-',{
-        text:'批量导入',
-        handler:function(){
-            alert("批量导入");
-        }
-    },'-',{
-        text:'导出EXCEL',
-        handler:function(){
-            alert("导出EXCEL");
+            alert("删除角色");
         }
     }];
 
-    $("#departmentDatagrid").datagrid({
-        url: "department/queryByPage.json",
+    $("#roleDatagrid").datagrid({
+        url: "role/queryByPage.json",
         pagination: true,
         pageSize: 15,
         pageList: [10, 15, 20],
@@ -94,20 +83,20 @@ function initDepartmentDatagrid() {
     });
 }
 
-function initDepartmentDialog() {
-    $.parser.parse("#departmentManagement");
-    $("#editDepartmentDialog").dialog({
-        title:"添加部门",
+function initRoleDialog() {
+    $.parser.parse("#roleManagement");
+    $("#editRoleDialog").dialog({
+        title:"添加角色",
         width:500,
         height:450,
         closed:true,
         cache:false,
         modal:true,
-        buttons:"#departmentDialogButtons"
+        buttons:"#roleDialogButtons"
     });
 
-    $("#deleteDepartmentDialog").dialog({
-        title: "删除部门",
+    $("#deleteRoleDialog").dialog({
+        title: "删除角色",
         width: 320,
         height: 150,
         modal: true,
@@ -117,66 +106,66 @@ function initDepartmentDialog() {
             {
                 text: '是的', iconCls: 'icon-ok', handler: function () {
                 $.ajax({
-                    url: "../department/deleteDepartmentById.json",
+                    url: "../role/deleteRoleById.json",
                     data: {deptId: deletingDeptId},
                     type: "post",
                     dataType: "json",
                     success: function (result) {
-                        $("#departmentDatagrid").datagrid("reload");
+                        $("#roleDatagrid").datagrid("reload");
                     },
                     error: function (result) {
                         alert("删除失败");
                     }
                 });
-                $("#deleteDepartmentDialog").dialog("close");
+                $("#deleteRoleDialog").dialog("close");
             }
             },
             {
                 text: '不是', iconCls: 'icon-no', handler: function () {
-                $("#deleteDepartmentDialog").dialog("close");
+                $("#deleteRoleDialog").dialog("close");
             }
             }
         ]
     });
 }
 
-function addDepartment() {
-    clearEditDepartmentForm();
-    $("#editDepartmentDialog").dialog({title:"添加部门"}).dialog("open");
+function addRole() {
+    clearEditRoleForm();
+    $("#editRoleDialog").dialog({title:"添加角色"}).dialog("open");
 }
 
-function viewDepartmentDetail(event, deptId) {
+function viewRoleDetail(event, deptId) {
     event.stopPropagation();
     alert("详情");
 }
 
-function clearEditDepartmentForm() {
-    $("#editDepartmentDialog").find("#editDepartmentFrom").form("clear");
+function clearEditRoleForm() {
+    $("#editRoleDialog").find("#editRoleFrom").form("clear");
 }
 
 function deleteDeptById(event, deptId) {
     event.stopPropagation();
     deletingDeptId = deptId;
-    $("#deleteDepartmentDialog").dialog("open");
+    $("#deleteRoleDialog").dialog("open");
 }
 
-function saveDepartment() {
-    var $editDepartmentDialog = $("#editDepartmentDialog");
+function saveRole() {
+    var $editRoleDialog = $("#editRoleDialog");
 
-    var departmentId = $editDepartmentDialog.find("input[name='departmentId']").val();
-    var url = "department/add.json";
-    if (departmentId != '') {
-        url = "department/update.json";
+    var roleId = $editRoleDialog.find("input[name='roleId']").val();
+    var url = "role/add.json";
+    if (roleId != '') {
+        url = "role/update.json";
     }
 
-    $editDepartmentDialog.find("#editDepartmentFrom").form("submit",{
+    $editRoleDialog.find("#editRoleFrom").form("submit",{
         url:url,
         success: function (result) {
             try {
                 var jsonResult = $.parseJSON(result);
                 if (jsonResult.status = 0) {
                     $.messager.alert("提示信息",jsonResult.message);
-                    $('#departmentDatagrid').datagrid('reload');
+                    $('#roleDatagrid').datagrid('reload');
                 } else {
                     $.messager.alert("提示信息",jsonResult.message,"warning");
                 }
@@ -184,36 +173,36 @@ function saveDepartment() {
             } catch (e) {
                 $.messager.alert("系统异常","系统发生异常","warning");
             }
-            clearEditDepartmentForm();
-            $editDepartmentDialog.dialog('close');
+            clearEditRoleForm();
+            $editRoleDialog.dialog('close');
         }
     });
 }
 
-function editDepartment(event, deptId) {
+function editRole(event, deptId) {
     event.stopPropagation();
-    clearEditDepartmentForm();
-    var $editDepartmentDialog = $("#editDepartmentDialog").dialog({title:"修改部门"});
+    clearEditRoleForm();
+    var $editRoleDialog = $("#editRoleDialog").dialog({title:"修改角色"});
     $.ajax({
-        url:"department/queryById.json",
+        url:"role/queryById.json",
         method:"get",
         data:{deptId:deptId},
         dataType:"json",
         success: function (result) {
             if (result && result.data) {
-                var department = result.data;
-                $editDepartmentDialog.find("#editDepartmentFrom").form('load',{
-                    cnName:department.cnName,
-                    enName:department.enName,
-                    parent:department.parent ? department.parent.id : '',
-                    departmentManager:department.manager ? department.manager.id : '',
-                    location:department.location,
-                    establishedDate:department.establishedDate,
-                    remark:department.remark,
-                    departmentId:department.id
+                var role = result.data;
+                $editRoleDialog.find("#editRoleFrom").form('load',{
+                    cnName:role.cnName,
+                    enName:role.enName,
+                    parent:role.parent ? role.parent.id : '',
+                    roleManager:role.manager ? role.manager.id : '',
+                    location:role.location,
+                    establishedDate:role.establishedDate,
+                    remark:role.remark,
+                    roleId:role.id
                 });
             }
         }
     });
-    $editDepartmentDialog.dialog("open");
+    $editRoleDialog.dialog("open");
 }

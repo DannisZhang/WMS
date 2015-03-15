@@ -53,8 +53,10 @@ function initLeftMenu() {
                 "menuId": 1, "menuName": "系统管理", "icon": "icon-dannis-setting",
                 "menus": [
                     {"menuId": 1, "menuName": "用户管理", "icon": "", "url": "page/userManagement.html"},
-                    {"menuId": 1, "menuName": "角色管理", "icon": "", "url": "page/default.html"},
-                    {"menuId": 1, "menuName": "权限管理", "icon": "", "url": "page/default.html"},
+                    {"menuId": 1, "menuName": "角色管理", "icon": "", "url": "page/roleManagement.html"},
+                    {"menuId": 1, "menuName": "权限管理", "icon": "", "url": "page/permissionManagement.html"},
+                    {"menuId": 1, "menuName": "模块管理", "icon": "", "url": "page/moduleManagement.html"},
+                    {"menuId": 1, "menuName": "菜单管理", "icon": "", "url": "page/menuManagement.html"},
                     {"menuId": 1, "menuName": "系统日志", "icon": "", "url": "page/systemSetting.html"}
                 ]
             },

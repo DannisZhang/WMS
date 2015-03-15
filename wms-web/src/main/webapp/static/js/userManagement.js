@@ -26,13 +26,13 @@ function initUserDatagrid() {
     var columns = [
         [
             {field: 'ck', checkbox: true},
-            {field: "code", title: "编码", align: "center", width: 120, fixed: true},
-            {field: "name", title: "姓名", align: "center", width: 120, fixed: true},
-            {field: "gender", title: "性别", align: "center", width: 120, fixed: true},
+            {field: "code", title: "编码", align: "center", width: 100, fixed: true},
+            {field: "name", title: "姓名", align: "center", width: 100, fixed: true},
+            {field: "gender", title: "性别", align: "center", width: 50, fixed: true},
             {field: "loginName", title: "登录名", align: "center", width: 100, fixed: true},
-            {field: "mobilephone", title: "移动电话", align: "center", width: 130, fixed: true},
-            {field: "telephone", title: "办公电话", align: "center", width: 120, fixed: true},
-            {field: "email", title: "邮箱", align: "center", width: 200},
+            {field: "createdBy", title: "创建者", align: "center", width: 100, fixed: true},
+            {field: "createdOn", title: "创建时间", align: "center", width: 120, fixed: true},
+            {field: "description", title: "用户描述", align: "center", width: 200},
             {
                 field: "id", title: "操作", align: "center", width: 150, fixed: true,
                 formatter: function (value, row, index) {
@@ -59,16 +59,6 @@ function initUserDatagrid() {
         iconCls:'icon-remove',
         handler:function(){
             alert("删除用户");
-        }
-    },'-',{
-        text:'批量导入',
-        handler:function(){
-            alert("批量导入");
-        }
-    },'-',{
-        text:'导出EXCEL',
-        handler:function(){
-            alert("导出EXCEL");
         }
     }];
 
@@ -108,7 +98,7 @@ function initUserDialog() {
     });
 
     $("#deleteUserDialog").dialog({
-        title: "删除部门",
+        title: "删除用户",
         width: 320,
         height: 150,
         modal: true,
@@ -143,7 +133,7 @@ function initUserDialog() {
 
 function addUser() {
     clearEditUserForm();
-    $("#editUserDialog").dialog({title:"添加部门"}).dialog("open");
+    $("#editUserDialog").dialog({title:"添加用户"}).dialog("open");
 }
 
 function detail(event, deptId) {
@@ -152,15 +142,7 @@ function detail(event, deptId) {
 }
 
 function clearEditUserForm() {
-    var $editUserDialog = $("#editUserDialog").dialog();
-    $editUserDialog.find("input[name='name']").textbox("setValue","");
-    $editUserDialog.find("input[name='gender']").textbox("setValue","");
-    $editUserDialog.find("input[name='loginName']").textbox("setValue","");
-    $editUserDialog.find("input[name='mobilephone']").textbox("setValue","");
-    $editUserDialog.find("input[name='telephone']").textbox("setValue","");
-    $editUserDialog.find("input[name='email']").textbox("setValue","");
-    $editUserDialog.find("input[name='roles']").textbox("setValue","");
-    $editUserDialog.find("input[name='remark']").textbox("setValue","");
+    $("#editUserDialog").find("#editUserFrom").form("clear");
 }
 
 function saveUser() {

@@ -1,7 +1,7 @@
 package com.dannis.wms.dao.impl;
 
 import com.dannis.wms.dao.PositionDao;
-import com.dannis.wms.entity.Position;
+import com.dannis.wms.model.Position;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,42 +16,42 @@ import java.util.Map;
  */
 @Repository
 public class PositionDaoImpl implements PositionDao {
-  /**
-   * Hibernate session factory
-   */
-  @Autowired
-  private SessionFactory sessionFactory;
+    /**
+     * Hibernate session factory
+     */
+    @Autowired
+    private SessionFactory sessionFactory;
 
-  @Override
-  public boolean addPosition(Position position) {
-    Session session = sessionFactory.openSession();
-    session.save(position);
-    session.beginTransaction().commit();
-    return true;
-  }
+    @Override
+    public boolean addPosition(Position position) {
+        Session session = sessionFactory.openSession();
+        session.save(position);
+        session.beginTransaction().commit();
+        return true;
+    }
 
-  @Override
-  public boolean deletePosition(int postId) {
-    return false;
-  }
+    @Override
+    public boolean deletePosition(int postId) {
+        return false;
+    }
 
-  @Override
-  public boolean updatePosition(Position position) {
-    return false;
-  }
+    @Override
+    public boolean updatePosition(Position position) {
+        return false;
+    }
 
-  @Override
-  public Position queryPosition(int postId) {
-    return null;
-  }
+    @Override
+    public Position queryPosition(int postId) {
+        return null;
+    }
 
-  @Override
-  public List<Position> queryPositions(Map<String, Object> queryParams) {
-    return null;
-  }
+    @Override
+    public List<Position> queryPositions(Map<String, Object> queryParams) {
+        return null;
+    }
 
-  @Override
-  public long getTotal(Map<String, Object> queryParams) {
-    return 0;
-  }
+    @Override
+    public long getTotal(Map<String, Object> queryParams) {
+        return 0;
+    }
 }
