@@ -8,25 +8,25 @@ public class ActionEntity extends BaseEntity {
     /**
      * 功能值
      */
-    private String value;
+    private String url;
     /**
      * 菜单编码
      */
-    private Long menuCode;
+    private String menuCode;
 
-    public String getValue() {
-        return value;
+    public String getUrl() {
+        return url;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public Long getMenuCode() {
+    public String getMenuCode() {
         return menuCode;
     }
 
-    public void setMenuCode(Long menuCode) {
+    public void setMenuCode(String menuCode) {
         this.menuCode = menuCode;
     }
 }

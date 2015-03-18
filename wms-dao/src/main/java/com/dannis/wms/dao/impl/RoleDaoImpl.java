@@ -1,7 +1,7 @@
 package com.dannis.wms.dao.impl;
 
-import com.dannis.wms.dao.ActionDao;
-import com.dannis.wms.entity.ActionEntity;
+import com.dannis.wms.dao.RoleDao;
+import com.dannis.wms.entity.RoleEntity;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,52 +13,42 @@ import java.util.List;
 /**
  * @author deng.zhang
  * @version 1.0.0
- * @since 2015-03-16 10:27
+ * @since 2015-03-17 10:58
  */
 @Repository
-public class ActionDaoImpl implements ActionDao {
+public class RoleDaoImpl implements RoleDao {
     /**
      * Hibernate session factory
      */
     @Autowired
     private SessionFactory sessionFactory;
-
     @Override
-    public void save(ActionEntity action) {
+    public void save(RoleEntity role) {
         Session session = sessionFactory.openSession();
-        session.save(action);
+        session.save(role);
         session.beginTransaction().commit();
     }
 
     @Override
     public void delete(String code) {
         Session session = sessionFactory.openSession();
-        String hql = "delete ActionEntity as a where a.code = ?";
+        String hql = "delete RoleEntity as r where r.code = ?";
         Query query = session.createQuery(hql);
         query.setString(0, code);
         query.executeUpdate();
     }
 
     @Override
-    public void deleteByMenuCode(String menuCode) {
+    public RoleEntity find(String code) {
+        String hql = "from RoleEntity as r where r.code = " + code;
         Session session = sessionFactory.openSession();
-        String hql = "delete ActionEntity as a where a.menu_code = ?";
         Query query = session.createQuery(hql);
-        query.setString(0, menuCode);
-        query.executeUpdate();
+        return (RoleEntity) query.uniqueResult();
     }
 
     @Override
-    public ActionEntity find(String code) {
-        String hql = "from ActionEntity as a where a.code = " + code;
-        Session session = sessionFactory.openSession();
-        Query query = session.createQuery(hql);
-        return (ActionEntity) query.uniqueResult();
-    }
-
-    @Override
-    public List<ActionEntity> findByMenuCode(String menuCode) {
-        String hql = "from ActionEntity as a where a.menu_code = " + menuCode;
+    public List<RoleEntity> findByUserCode(String userCode) {
+        String hql = "from RoleEntity as a where a.user_code = " + userCode;
         Session session = sessionFactory.openSession();
         Query query = session.createQuery(hql);
         return query.list();

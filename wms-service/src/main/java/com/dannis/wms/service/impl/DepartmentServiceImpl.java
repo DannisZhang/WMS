@@ -1,7 +1,7 @@
 package com.dannis.wms.service.impl;
 
 import com.dannis.wms.dao.DepartmentDao;
-import com.dannis.wms.dao.utils.DepartmentUtil;
+import com.dannis.wms.entity.utils.DepartmentUtil;
 import com.dannis.wms.entity.DepartmentEntity;
 import com.dannis.wms.model.Department;
 import com.dannis.wms.query.QueryParams;

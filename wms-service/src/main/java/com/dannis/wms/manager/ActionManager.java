@@ -1,23 +1,25 @@
-package com.dannis.wms.dao;
+package com.dannis.wms.manager;
 
-import com.dannis.wms.entity.ActionEntity;
+import com.dannis.wms.model.Action;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 /**
- * 菜单功能DAO
+ * 系统菜单功能管理类
  *
  * @author deng.zhang
  * @version 1.0.0
- * @since 2015-03-16 10:18
+ * @since 2015-03-17 11:10
  */
-public interface ActionDao {
+@Component
+public interface ActionManager {
     /**
      * 保存菜单功能
      *
      * @param action 菜单功能实体对象
      */
-    void save(ActionEntity action);
+    void save(Action action);
 
     /**
      * 根据编码删除菜单功能
@@ -39,7 +41,7 @@ public interface ActionDao {
      * @param code 菜单功能编码
      * @return 菜单功能实体对象
      */
-    ActionEntity find(String code);
+    Action find(String code);
 
     /**
      * 根据菜单编码查找菜单功能
@@ -47,5 +49,5 @@ public interface ActionDao {
      * @param menuCode 菜单编码
      * @return 菜单功能列表
      */
-    List<ActionEntity> findByMenuCode(String menuCode);
+    List<Action> findByMenuCode(String menuCode);
 }

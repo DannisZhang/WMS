@@ -16,9 +16,9 @@ public class Action {
      */
     private String code;
     /**
-     * 功能值
+     * URL
      */
-    private String value;
+    private String url;
     /**
      * 备注
      */
@@ -40,12 +40,12 @@ public class Action {
         this.code = code;
     }
 
-    public String getValue() {
-        return value;
+    public String getUrl() {
+        return url;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getRemark() {

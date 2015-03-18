@@ -10,25 +10,25 @@ public class MenuEntity extends BaseEntity {
     /**
      * 菜单值
      */
-    private String value;
+    private String url;
     /**
      * 模块编码
      */
-    private Long moduleCode;
+    private String moduleCode;
 
-    public String getValue() {
-        return value;
+    public String getUrl() {
+        return url;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
-    public Long getModuleCode() {
+    public String getModuleCode() {
         return moduleCode;
     }
 
-    public void setModuleCode(Long moduleCode) {
+    public void setModuleCode(String moduleCode) {
         this.moduleCode = moduleCode;
     }
 }

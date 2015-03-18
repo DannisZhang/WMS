@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.dannis.wms.entity">
+    <class name="UserEntity" table="t_user">
+        <id name="id" column="id">
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string" column="name"/>
+        <property name="code" type="string" column="code"/>
+        <property name="loginName" type="string" column="login_name"/>
+        <property name="gender" type="string" column="gender"/>
+        <property name="mobilephone" type="string" column="mobilephone"/>
+        <property name="telephone" type="string" column="telephone"/>
+        <property name="email" type="string" column="email"/>
+        <property name="remark" type="string" column="remark"/>
+        <property name="status" type="string" column="status"/>
+        <property name="createdOn" type="timestamp" column="created_on"/>
+        <property name="createdBy" type="integer" column="created_by"/>
+        <property name="lastModifiedOn" type="timestamp" column="last_modified_on"/>
+        <property name="lastModifiedBy" type="integer" column="last_modified_by"/>
+    </class>
+</hibernate-mapping>

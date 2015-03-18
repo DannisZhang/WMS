@@ -18,9 +18,9 @@ public class Menu {
      */
     private String code;
     /**
-     * 菜单值
+     * URL
      */
-    private String value;
+    private String url;
     /**
      * 菜单功能列表
      */
@@ -46,12 +46,12 @@ public class Menu {
         this.code = code;
     }
 
-    public String getValue() {
-        return value;
+    public String getUrl() {
+        return url;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public List<Action> getActions() {

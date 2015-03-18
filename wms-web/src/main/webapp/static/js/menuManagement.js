@@ -1,7 +1,6 @@
 /**
  * Created by deng.zhang on 2014/11/19.
  */
-var deletingMenuId = -1;
 $(function () {
     initMenuDatagrid();
     initMenuDialog();
@@ -28,9 +27,7 @@ function initMenuDatagrid() {
             {field: 'ck', checkbox: true},
             {field: "code", title: "菜单编码", align: "center", width: 100, fixed: true},
             {field: "name", title: "菜单名称", align: "center", width: 120, fixed: true},
-            {field: "createdBy", title: "创建者", align: "center", width: 100, fixed: true},
-            {field: "createdOn", title: "创建时间", align: "center", width: 120, fixed: true},
-            {field: "description", title: "菜单描述", align: "center", width: 200},
+            {field: "remark", title: "备注信息", align: "center", width: 200},
             {
                 field: "id", title: "操作", align: "center", width: 150, fixed: true,
                 formatter: function (value, row, index) {
@@ -38,7 +35,7 @@ function initMenuDatagrid() {
                         + ' style="height:20px;width:34px;text-align: center" href="javascript:void(0);">详情</a>';
                     var edit = '<a class="datagrid-edit-button" onclick="editMenu(event,' + row.id + ')"'
                         + ' style="height:20px;width:34px;text-align: center;margin-left:5px" href="javascript:void(0);">修改</a>';
-                    var del = '<a class="datagrid-delete-button" onclick="deleteMenuById(event,' + row.id + ')"'
+                    var del = '<a class="datagrid-delete-button" onclick="deleteMenuByCode(event,\'' + row.code + '\')"'
                         + ' style="height:20px;width:34px;text-align: center;margin-left:5px;" href="javascript:void(0);">删除</a>';
                     return detail + edit + del;
                 }
@@ -53,15 +50,15 @@ function initMenuDatagrid() {
             addMenu();
         }
     },'-',{
-        text:'删除菜单',
+        text:'批量删除',
         iconCls:'icon-remove',
         handler:function(){
-            alert("删除菜单");
+            deleteMenuByCodeList();
         }
     }];
 
     $("#menuDatagrid").datagrid({
-        url: "menu/queryByPage.json",
+        url: "menu/findByPage.json",
         pagination: true,
         pageSize: 15,
         pageList: [10, 15, 20],
@@ -94,44 +91,35 @@ function initMenuDialog() {
         modal:true,
         buttons:"#menuDialogButtons"
     });
-
-    $("#deleteMenuDialog").dialog({
-        title: "删除菜单",
-        width: 320,
-        height: 150,
-        modal: true,
-        closed: true,
-        resizable: false,
-        buttons: [
-            {
-                text: '是的', iconCls: 'icon-ok', handler: function () {
-                $.ajax({
-                    url: "../menu/deleteMenuById.json",
-                    data: {deptId: deletingMenuId},
-                    type: "post",
-                    dataType: "json",
-                    success: function (result) {
-                        $("#menuDatagrid").datagrid("reload");
-                    },
-                    error: function (result) {
-                        alert("删除失败");
-                    }
-                });
-                $("#deleteMenuDialog").dialog("close");
-            }
-            },
-            {
-                text: '不是', iconCls: 'icon-no', handler: function () {
-                $("#deleteMenuDialog").dialog("close");
-            }
-            }
-        ]
-    });
 }
 
 function addMenu() {
     clearEditMenuForm();
     $("#editMenuDialog").dialog({title:"添加菜单"}).dialog("open");
+}
+
+function deleteMenuByCodeList() {
+    var checkedRows = $("#menuDatagrid").datagrid("getChecked");
+    if (checkedRows.length == 0) {
+        $.messager.alert("提示","请至少选择一个菜单");
+    } else {
+        $.messager.confirm("确认删除","请确认是否删除已选菜单？", function (r) {
+            if (r) {
+                var codeList = [];
+                $.each(checkedRows, function (i, row) {
+                    codeList.push(row.code);
+                });
+                $.post("menu/deleteByCodes.json",{codes:codeList.join(",")}, function (result) {
+                    if (result.code == 0) {
+                        $.messager.alert("提示","删除成功！");
+                        $("#menuDatagrid").datagrid("reload");
+                    } else {
+                        $.messager.alert("提示","删除失败！","warning");
+                    }
+                });
+            }
+        });
+    }
 }
 
 function viewMenuDetail(event, deptId) {
@@ -143,10 +131,25 @@ function clearEditMenuForm() {
     $("#editMenuDialog").find("#editMenuFrom").form("clear");
 }
 
-function deleteMenuById(event, deptId) {
+function deleteMenuByCode(event, menuCode) {
     event.stopPropagation();
-    deletingMenuId = deptId;
-    $("#deleteMenuDialog").dialog("open");
+    $.messager.confirm("确认删除","请确认是否删除？", function (r) {
+        if (r) {
+            $.ajax({
+                url:"menu/delete.json",
+                method:"post",
+                data:{"code" : menuCode},
+                success: function (result) {
+                    if (result.code == 0) {
+                        $.messager.alert("删除成功","删除菜单成功！");
+                        $("#menuDatagrid").datagrid("reload");
+                    } else {
+                        $.messager.alert("删除失败","抱歉，删除菜单失败！","error");
+                    }
+                }
+            })
+        }
+    });
 }
 
 function saveMenu() {
@@ -163,13 +166,12 @@ function saveMenu() {
         success: function (result) {
             try {
                 var jsonResult = $.parseJSON(result);
-                if (jsonResult.status = 0) {
+                if (jsonResult.code == 0) {
                     $.messager.alert("提示信息",jsonResult.message);
                     $('#menuDatagrid').datagrid('reload');
                 } else {
                     $.messager.alert("提示信息",jsonResult.message,"warning");
                 }
-                $.messager.alert("提示信息",jsonResult.message);
             } catch (e) {
                 $.messager.alert("系统异常","系统发生异常","warning");
             }

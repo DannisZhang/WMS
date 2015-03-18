@@ -1,4 +1,4 @@
-package com.dannis.wms.dao.utils;
+package com.dannis.wms.entity.utils;
 
 import com.dannis.wms.entity.DepartmentEntity;
 import com.dannis.wms.model.Department;

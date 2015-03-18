@@ -1,24 +1,25 @@
-package com.dannis.wms.dao;
+package com.dannis.wms.service;
 
-import com.dannis.wms.entity.MenuEntity;
+import com.dannis.wms.model.Menu;
+import com.dannis.wms.query.QueryParams;
+import com.dannis.wms.query.result.PaginationQueryResult;
 
 import java.util.List;
-import java.util.Map;
 
 /**
- * 系统菜单DAO
+ * 系统菜单服务类
  *
  * @author deng.zhang
  * @version 1.0.0
- * @since 2015-03-16 10:18
+ * @since 2015-03-17 11:26
  */
-public interface MenuDao {
+public interface MenuService {
     /**
      * 保存系统菜单（新增或修改）
      *
      * @param menu 系统菜单实体对象
      */
-    void save(MenuEntity menu);
+    void save(Menu menu);
 
     /**
      * 根据编码删除系统菜单
@@ -47,7 +48,7 @@ public interface MenuDao {
      * @param code 系统菜单编码
      * @return 系统菜单实体对象
      */
-    MenuEntity find(String code);
+    Menu find(String code);
 
     /**
      * 根据系统模块编码查找系统菜单
@@ -55,30 +56,13 @@ public interface MenuDao {
      * @param moduleCode 系统模块编码
      * @return 系统菜单列表
      */
-    List<MenuEntity> findByModuleCode(String moduleCode);
+    List<Menu> findByModuleCode(String moduleCode);
 
     /**
      * 分页查询菜单
      *
-     * @param start       查询开始
-     * @param maxSize     每页大小
      * @param queryParams 查询参数
-     * @return 菜单列表
+     * @return 查询结果
      */
-    List<MenuEntity> findByPage(int start, int maxSize, Map<String, String> queryParams);
-
-    /**
-     * 根据查询条件查询菜单总数
-     *
-     * @param queryParams 查询条件
-     * @return 满足查询条件的菜单总数
-     */
-    long getTotal(Map<String, String> queryParams);
-
-    /**
-     * 查询最大ID值
-     *
-     * @return 最大ID值
-     */
-    long findMaxId();
+    PaginationQueryResult<Menu> findByPage(QueryParams queryParams);
 }

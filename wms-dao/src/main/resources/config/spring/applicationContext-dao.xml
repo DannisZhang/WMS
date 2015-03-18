@@ -22,9 +22,15 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="mappingResources">
             <list>
+                <value>com/dannis/wms/dao/hbm/ActionEntity.hbm.xml</value>
                 <value>com/dannis/wms/dao/hbm/Department.hbm.xml</value>
                 <value>com/dannis/wms/dao/hbm/Employee.hbm.xml</value>
+                <value>com/dannis/wms/dao/hbm/MenuEntity.hbm.xml</value>
+                <value>com/dannis/wms/dao/hbm/ModuleEntity.hbm.xml</value>
+                <value>com/dannis/wms/dao/hbm/PermissionEntity.hbm.xml</value>
                 <value>com/dannis/wms/dao/hbm/Position.hbm.xml</value>
+                <value>com/dannis/wms/dao/hbm/RoleEntity.hbm.xml</value>
+                <value>com/dannis/wms/dao/hbm/UserEntity.hbm.xml</value>
             </list>
         </property>
         <property name="hibernateProperties">
