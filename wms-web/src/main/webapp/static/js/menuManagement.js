@@ -58,6 +58,7 @@ function initMenuDatagrid() {
     }];
 
     $("#menuDatagrid").datagrid({
+        title:'菜单列表',
         url: "menu/findByPage.json",
         pagination: true,
         pageSize: 15,
@@ -65,7 +66,7 @@ function initMenuDatagrid() {
         loadMsg: '数据加载中...',
         columns: columns,
         fitColumns: true,
-        toolbar: toolbar,
+        toolbar: '#menuDatagridToolbar',
         onLoadSuccess: function () {
             var $detailButton = $('.datagrid-detail-button');
             $detailButton.linkbutton({plain: false});
@@ -207,4 +208,8 @@ function editMenu(event, deptId) {
         }
     });
     $editMenuDialog.dialog("open");
+}
+
+function findMenuByName(menuName) {
+    $.messager.alert("提示","查询菜单");
 }
